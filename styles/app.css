@@ -14,7 +14,6 @@
 
 @media (min-width: 576px) {
     .app-container {
-        height: min(840px, calc(100vh - 2rem));
         border-radius: var(--bs-border-radius-xl) !important;
     }
 }
