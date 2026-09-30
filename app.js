@@ -319,13 +319,10 @@ function processUploadedFile(file) {
 
 function handleManualInputPaste(e) {
     const isRowPerContact = document.getElementById('mode-row-per-contact')?.checked;
-    if (!isRowPerContact) return;
-
     const pastedData = (e.clipboardData || window.clipboardData)?.getData('text');
-    if (!pastedData) return;
 
-    // Check if tabs are present and acting as column delimiters
-    if (pastedData.includes('\t')) {
+    // Check if tabs are present and acting as column delimiters in row-per-contact mode
+    if (isRowPerContact && pastedData && pastedData.includes('\t')) {
         e.preventDefault();
 
         // Convert tab-delimited text to valid CSV
@@ -341,6 +338,20 @@ function handleManualInputPaste(e) {
 
         updateStep1NextButton();
     }
+
+    // Scroll window and container to bottom upon pasting
+    setTimeout(() => {
+        window.scrollTo({
+            top: Math.max(document.body.scrollHeight, document.documentElement.scrollHeight),
+            behavior: 'smooth'
+        });
+        if (mainContentEl) {
+            mainContentEl.scrollTo({
+                top: mainContentEl.scrollHeight,
+                behavior: 'smooth'
+            });
+        }
+    }, 0);
 }
 
 function convertTabsToCsv(text) {
@@ -381,6 +392,9 @@ function updateStep1NextButton() {
 }
 
 function resetStep1Inputs() {
+    const confirmed = confirm('Are you sure you want to reset?');
+    if (!confirmed) return;
+
     fileName = '';
     fileSize = '';
     const fileInput = document.getElementById('csv-file-input');
@@ -579,7 +593,6 @@ function goToStep(step) {
         3: 'Step 3: Message Template',
         4: 'Step 4: Outreach List'
     };
-    document.getElementById('step-subtitle').textContent = subtitles[step] || '';
 
     for (let i = 1; i <= 4; i++) {
         const pill = document.getElementById(`pill-${i}`);
