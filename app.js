@@ -157,13 +157,8 @@ function populateColumnDropdowns() {
 
     const isHeader = document.getElementById('header-row-checkbox').checked;
 
-    if (isHeader) {
-        rawCsvHeader = rawCsvLines[0].map((col, idx) => col.trim() || `Column ${idx + 1}`);
-        rawCsvRows = rawCsvLines.slice(1);
-    } else {
-        rawCsvHeader = rawCsvLines[0].map((_, idx) => `Column ${idx + 1}`);
-        rawCsvRows = rawCsvLines;
-    }
+    rawCsvHeader = rawCsvLines[0].map((col, idx) => col.trim() || `Column ${idx + 1}`);
+    rawCsvRows = isHeader ? rawCsvLines.slice(1) : rawCsvLines;
 
     document.getElementById('detected-column-count').textContent = rawCsvHeader.length;
 
