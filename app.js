@@ -22,6 +22,31 @@ document.getElementById('message-template-input').value = messageTemplate;
 // File Input Event Listener
 document.getElementById('csv-file-input').addEventListener('change', handleFileSelect);
 
+// Drop Zone Drag & Drop Event Listeners
+const dropZoneEl = document.getElementById('drop-zone');
+if (dropZoneEl) {
+    dropZoneEl.addEventListener('dragover', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZoneEl.classList.add('border-primary');
+    });
+    ['dragleave', 'dragend'].forEach(type => {
+        dropZoneEl.addEventListener(type, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZoneEl.classList.remove('border-primary');
+        });
+    });
+    dropZoneEl.addEventListener('drop', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        dropZoneEl.classList.remove('border-primary');
+        if (e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files.length > 0) {
+            processUploadedFile(e.dataTransfer.files[0]);
+        }
+    });
+}
+
 // Scroll tracking elements
 const mainContentEl = document.getElementById('main-content');
 const contactsScrollEl = document.getElementById('contacts-scroll-container');
@@ -188,7 +213,10 @@ function startOver() {
 function handleFileSelect(e) {
     const file = e.target.files[0];
     if (!file) return;
+    processUploadedFile(file);
+}
 
+function processUploadedFile(file) {
     fileName = file.name;
     fileSize = `${(file.size / 1024).toFixed(1)} KB`;
 
@@ -277,7 +305,9 @@ function parseCSVContent(text) {
     // Make Step 1 next button visible
     const nextBtn = document.getElementById('btn-step-1-next');
     nextBtn.classList.remove('d-none');
-    saveStateToLocalStorage();
+
+    // Automatically advance to Step 2
+    goToStep(2);
 }
 
 function handleHeaderRowToggle() {
