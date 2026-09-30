@@ -175,7 +175,7 @@
             <!-- STEP 4: Outreach List (Swipe, Select, Copy) -->
             <section id="step-4" class="step-panel flex-grow-1 d-none" style="min-height: 0;">
                 <!-- Summary / Counter bar -->
-                <div class="text-white mb-3 shadow-sm flex-shrink-0 border-0">
+                <div id="step-4-progress" class="text-white mb-3 shadow-sm flex-shrink-0 border-0">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <span class="text-uppercase small fw-bold text-secondary" style="font-size: 0.7rem; letter-spacing: 0.05em;">Progress</span>
                         <span class="fw-bold text-success small" id="progress-text">0 / 0 Contacted</span>
@@ -186,7 +186,7 @@
                 </div>
 
                 <!-- Search and Filter Bar -->
-                <div class="d-flex align-items-center gap-2 mb-2 flex-shrink-0">
+                <div id="step-4-search-filter" class="d-flex align-items-center gap-2 mb-2 flex-shrink-0">
                     <!-- Toggle Select All Button -->
                     <button type="button" id="btn-toggle-select-all" onclick="toggleSelectAllContacts()" class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;" title="Toggle Select All">
                         <i class="bi bi-check2-square fs-6"></i>
@@ -211,14 +211,14 @@
                 </div>
 
                 <!-- Contacts Table Container -->
-                <div class="card border rounded-3 overflow-hidden flex-grow-1 d-flex flex-column mb-2 bg-white" style="min-height: 0;">
+                <div id="step-4-contacts-container" class="card border rounded-3 overflow-hidden flex-grow-1 d-flex flex-column mb-2 bg-white" style="min-height: 0;">
                     <div id="contacts-scroll-container" class="overflow-y-auto custom-scroll flex-grow-1">
                         <div id="contacts-list" class="list-group list-group-flush"></div>
                     </div>
                 </div>
 
                 <!-- Step 4 Footer Controls -->
-                <div class="pt-1 flex-shrink-0">
+                <div id="step-4-footer" class="pt-1 flex-shrink-0">
                     <div class="d-flex align-items-center gap-2">
                         <button type="button" onclick="goToStep(3)" class="btn btn-outline-secondary btn-sm">
                             Back
@@ -233,6 +233,9 @@
                         </button>
                         <button type="button" onclick="startOver()" class="btn btn-outline-danger btn-sm">
                             Start over
+                        </button>
+                        <button type="button" id="btn-toggle-expand" onclick="toggleExpandContactList()" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" title="Expand list" aria-label="Expand contact list">
+                            <i class="bi bi-arrows-fullscreen"></i>
                         </button>
                     </div>
                 </div>

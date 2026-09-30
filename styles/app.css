@@ -144,3 +144,86 @@
 #message-template-input {
     field-sizing: content;
 }
+
+/* --- Expanded Contact List Mode --- */
+body.contacts-expanded {
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body.contacts-expanded .app-container {
+    max-width: 100% !important;
+    width: 100vw !important;
+    height: 100vh !important;
+    height: 100dvh !important;
+    border-radius: 0 !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+body.contacts-expanded header,
+body.contacts-expanded #step-4-progress,
+body.contacts-expanded #step-4-search-filter,
+body.contacts-expanded #step-4-footer > div > :not(#btn-toggle-expand),
+body.contacts-expanded #toast-container {
+    display: none !important;
+}
+
+body.contacts-expanded #main-content {
+    padding: 0 !important;
+    overflow: hidden !important;
+}
+
+body.contacts-expanded #step-4 {
+    height: 100% !important;
+    max-height: 100% !important;
+}
+
+body.contacts-expanded #step-4-contacts-container {
+    height: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important;
+    border: none !important;
+    margin-bottom: 0 !important;
+}
+
+body.contacts-expanded #step-4-footer {
+    padding: 0 !important;
+    position: static !important;
+}
+
+body.contacts-expanded #btn-toggle-expand {
+    position: fixed;
+    bottom: 1.25rem;
+    right: 1.25rem;
+    z-index: 1060;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: var(--bs-dark);
+    color: #ffffff;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+body.contacts-expanded #btn-toggle-expand:hover {
+    background-color: #000000;
+    color: #ffffff;
+    transform: scale(1.06);
+}
+
+body.contacts-expanded #btn-toggle-expand:active {
+    transform: scale(0.94);
+}
+.contacts-expanded .list-group-flush>.list-group-item:last-child {
+    margin-bottom: 80px;
+}

@@ -9,6 +9,7 @@ let contactMap = new Map(); // Key: normalized phone, Value: { first_name, last_
 let selectedContacts = new Set(); // Key: normalized phone
 let currentStep = 1;
 let showUnsentOnly = false;
+let isExpanded = false;
 let fileName = '';
 let fileSize = '';
 
@@ -95,6 +96,7 @@ function saveStateToLocalStorage() {
             selectedContacts: Array.from(selectedContacts),
             searchQuery: document.getElementById('contact-search').value,
             showUnsentOnly,
+            isExpanded: isExpanded && currentStep === 4,
             scrollTopMain: mainContentEl ? mainContentEl.scrollTop : 0,
             scrollTopContacts: contactsScrollEl ? contactsScrollEl.scrollTop : 0
         };
@@ -156,6 +158,9 @@ function loadStateFromLocalStorage() {
 
         goToStep(currentStep);
 
+        isExpanded = (currentStep === 4) && !!state.isExpanded;
+        updateExpandState();
+
         // Restore scroll positions after render
         requestAnimationFrame(() => {
             if (mainContentEl && state.scrollTopMain) {
@@ -182,8 +187,10 @@ function startOver() {
     contactMap.clear();
     selectedContacts.clear();
     showUnsentOnly = false;
+    isExpanded = false;
     fileName = '';
     fileSize = '';
+    updateExpandState();
 
     document.getElementById('csv-file-input').value = '';
     document.getElementById('file-name-display').textContent = 'Select a CSV contact list from your phone or device to generate custom SMS links.';
@@ -320,6 +327,11 @@ function handleHeaderRowToggle() {
 function goToStep(step) {
     currentStep = step;
 
+    if (step !== 4 && isExpanded) {
+        isExpanded = false;
+        updateExpandState();
+    }
+
     // Hide all steps
     for (let i = 1; i <= 4; i++) {
         const stepEl = document.getElementById(`step-${i}`);
@@ -356,6 +368,28 @@ function goToStep(step) {
     }
 
     saveStateToLocalStorage();
+}
+
+function toggleExpandContactList() {
+    isExpanded = !isExpanded;
+    updateExpandState();
+    saveStateToLocalStorage();
+}
+
+function updateExpandState() {
+    document.body.classList.toggle('contacts-expanded', isExpanded);
+    const expandBtn = document.getElementById('btn-toggle-expand');
+    if (!expandBtn) return;
+
+    if (isExpanded) {
+        expandBtn.innerHTML = '<i class="bi bi-fullscreen-exit"></i>';
+        expandBtn.title = 'Collapse list';
+        expandBtn.setAttribute('aria-label', 'Collapse contact list');
+    } else {
+        expandBtn.innerHTML = '<i class="bi bi-arrows-fullscreen"></i>';
+        expandBtn.title = 'Expand list';
+        expandBtn.setAttribute('aria-label', 'Expand contact list');
+    }
 }
 
 function populateColumnDropdowns() {
