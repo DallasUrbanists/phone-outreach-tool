@@ -143,6 +143,14 @@
 #message-template-input {
     field-sizing: content;
 }
+.auto-resize {
+    field-sizing: content;
+}
+.h-scroll {
+    white-space: nowrap;
+    overflow-x: auto;
+}
+
 
 /* --- Expanded Contact List Mode --- */
 body.contacts-expanded {

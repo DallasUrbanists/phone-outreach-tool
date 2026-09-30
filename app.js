@@ -11,6 +11,7 @@ let selectedContacts = new Set(); // Key: normalized phone
 let currentStep = 1;
 let showUnsentOnly = false;
 let isExpanded = false;
+let isPlainListMode = false;
 let isTooltipDismissListenerActive = false;
 let fileName = '';
 let fileSize = '';
@@ -21,6 +22,12 @@ let messageTemplate = DEFAULT_MESSAGE_TEMPLATE;
 
 // Initialize textarea with default template
 document.getElementById('message-template-input').value = messageTemplate;
+
+// Manual Contacts Input Event Listeners
+const manualInputEl = document.getElementById('manual-contacts-input');
+if (manualInputEl) {
+    manualInputEl.addEventListener('paste', handleManualInputPaste);
+}
 
 // File Input Event Listener
 document.getElementById('csv-file-input').addEventListener('change', handleFileSelect);
@@ -77,7 +84,8 @@ function saveScrollPositions() {
 
 function saveStateToLocalStorage() {
     try {
-        if (rawCsvLines.length === 0 && contactMap.size === 0 && currentStep === 1 && !fileName) {
+        const manualInput = document.getElementById('manual-contacts-input')?.value || '';
+        if (rawCsvLines.length === 0 && contactMap.size === 0 && currentStep === 1 && !fileName && !manualInput) {
             localStorage.removeItem(STORAGE_KEY);
             return;
         }
@@ -88,15 +96,18 @@ function saveStateToLocalStorage() {
             rawCsvRows,
             fileName,
             fileSize,
-            headerRowChecked: document.getElementById('header-row-checkbox').checked,
-            mapFirstName: document.getElementById('map-first-name').value,
-            mapLastName: document.getElementById('map-last-name').value,
-            mapPhone: document.getElementById('map-phone').value,
-            mapEmail: document.getElementById('map-email').value,
-            messageTemplate: document.getElementById('message-template-input').value,
+            manualContactsInput: manualInput,
+            isPlainListMode,
+            inputFormatMode: document.getElementById('mode-plain-phone-list')?.checked ? 'plain-phone-list' : 'row-per-contact',
+            headerRowChecked: document.getElementById('header-row-checkbox')?.checked,
+            mapFirstName: document.getElementById('map-first-name')?.value,
+            mapLastName: document.getElementById('map-last-name')?.value,
+            mapPhone: document.getElementById('map-phone')?.value,
+            mapEmail: document.getElementById('map-email')?.value,
+            messageTemplate: document.getElementById('message-template-input')?.value,
             contactMap: Array.from(contactMap.entries()),
             selectedContacts: Array.from(selectedContacts),
-            searchQuery: document.getElementById('contact-search').value,
+            searchQuery: document.getElementById('contact-search')?.value,
             showUnsentOnly,
             isExpanded: isExpanded && currentStep === 4,
             scrollTopMain: mainContentEl ? mainContentEl.scrollTop : 0,
@@ -124,6 +135,22 @@ function loadStateFromLocalStorage() {
         fileSize = state.fileSize || '';
         currentStep = state.currentStep || 1;
         showUnsentOnly = !!state.showUnsentOnly;
+
+        if (state.manualContactsInput) {
+            const manualInputEl = document.getElementById('manual-contacts-input');
+            if (manualInputEl) manualInputEl.value = state.manualContactsInput;
+        }
+
+        isPlainListMode = !!state.isPlainListMode;
+        if (state.inputFormatMode === 'plain-phone-list') {
+            const plainRadio = document.getElementById('mode-plain-phone-list');
+            if (plainRadio) plainRadio.checked = true;
+        } else {
+            const rowRadio = document.getElementById('mode-row-per-contact');
+            if (rowRadio) rowRadio.checked = true;
+        }
+        handleInputModeChange();
+        updateStep1NextButton();
 
         if (fileName) {
             document.getElementById('file-name-display').textContent = fileName;
@@ -191,6 +218,7 @@ function startOver() {
     selectedContacts.clear();
     showUnsentOnly = false;
     isExpanded = false;
+    isPlainListMode = false;
     fileName = '';
     fileSize = '';
     updateExpandState();
@@ -198,7 +226,12 @@ function startOver() {
     document.getElementById('csv-file-input').value = '';
     document.getElementById('file-name-display').textContent = 'Select a CSV contact list from your phone or device to generate custom SMS links.';
     document.getElementById('file-size-display').textContent = '';
-    document.getElementById('btn-step-1-next').classList.add('d-none');
+    const manualInputEl = document.getElementById('manual-contacts-input');
+    if (manualInputEl) manualInputEl.value = '';
+    const rowRadio = document.getElementById('mode-row-per-contact');
+    if (rowRadio) rowRadio.checked = true;
+    handleInputModeChange();
+    updateStep1NextButton();
 
     document.getElementById('detected-column-count').textContent = '0';
     document.getElementById('header-row-checkbox').checked = false;
@@ -211,6 +244,9 @@ function startOver() {
     messageTemplate = DEFAULT_MESSAGE_TEMPLATE;
     document.getElementById('message-template-input').value = DEFAULT_MESSAGE_TEMPLATE;
     document.getElementById('contact-search').value = '';
+
+    const varTagsContainer = document.getElementById('variable-tags-container');
+    if (varTagsContainer) varTagsContainer.classList.remove('d-none');
 
     const filterBtn = document.getElementById('btn-filter-sent');
     filterBtn.textContent = 'All';
@@ -235,9 +271,135 @@ function processUploadedFile(file) {
 
     const reader = new FileReader();
     reader.onload = function (evt) {
-        parseCSVContent(evt.target.result);
+        const content = evt.target.result || '';
+        const manualInputEl = document.getElementById('manual-contacts-input');
+        if (manualInputEl) {
+            manualInputEl.value = content;
+        }
+        updateStep1NextButton();
+        parseCSVContent(content);
     };
     reader.readAsText(file);
+}
+
+function handleManualInputPaste(e) {
+    const isRowPerContact = document.getElementById('mode-row-per-contact')?.checked;
+    if (!isRowPerContact) return;
+
+    const pastedData = (e.clipboardData || window.clipboardData)?.getData('text');
+    if (!pastedData) return;
+
+    // Check if tabs are present and acting as column delimiters
+    if (pastedData.includes('\t')) {
+        e.preventDefault();
+
+        // Convert tab-delimited text to valid CSV
+        const convertedData = convertTabsToCsv(pastedData);
+
+        const textarea = e.target;
+        const start = textarea.selectionStart;
+        const end = textarea.selectionEnd;
+        const currentVal = textarea.value;
+
+        textarea.value = currentVal.substring(0, start) + convertedData + currentVal.substring(end);
+        textarea.selectionStart = textarea.selectionEnd = start + convertedData.length;
+
+        updateStep1NextButton();
+    }
+}
+
+function convertTabsToCsv(text) {
+    const lines = text.split(/\r\n|\r|\n/);
+    return lines.map(line => {
+        if (!line.includes('\t')) return line;
+        const cells = line.split('\t');
+        return cells.map(cell => {
+            let val = cell.trim();
+            if (val.includes(',') || val.includes('"') || val.includes('\n')) {
+                val = `"${val.replace(/"/g, '""')}"`;
+            }
+            return val;
+        }).join(',');
+    }).join('\n');
+}
+
+function handleInputModeChange() {
+    const isPlain = document.getElementById('mode-plain-phone-list')?.checked;
+    const btnText = document.getElementById('btn-step-1-next-text');
+    if (btnText) {
+        btnText.textContent = isPlain ? 'Continue to message template' : 'Continue to column mapping';
+    }
+    saveStateToLocalStorage();
+}
+
+function updateStep1NextButton() {
+    const text = (document.getElementById('manual-contacts-input')?.value || '').trim();
+    const nextBtn = document.getElementById('btn-step-1-next');
+    if (nextBtn) {
+        if (text.length > 0 || fileName) {
+            nextBtn.classList.remove('d-none');
+        } else {
+            nextBtn.classList.add('d-none');
+        }
+    }
+    saveStateToLocalStorage();
+}
+
+function handleStep1Continue() {
+    const text = (document.getElementById('manual-contacts-input')?.value || '').trim();
+    if (!text) {
+        alert('Please upload a file or enter a contact list.');
+        return;
+    }
+
+    const isPlain = document.getElementById('mode-plain-phone-list')?.checked;
+    if (isPlain) {
+        isPlainListMode = true;
+        processPlainPhoneList(text);
+    } else {
+        isPlainListMode = false;
+        parseCSVContent(text);
+    }
+}
+
+function processPlainPhoneList(text) {
+    contactMap.clear();
+    selectedContacts.clear();
+
+    // Split using any potential delimiter (comma, semicolon, pipe, tab, newline)
+    const tokens = text.split(/[\r\n,;|\t]+/);
+    tokens.forEach(token => {
+        const raw = token.trim();
+        if (!raw) return;
+        const normalized = normalizePhone(raw);
+        if (normalized && !contactMap.has(normalized)) {
+            contactMap.set(normalized, {
+                phone: normalized,
+                rawPhone: raw,
+                first_name: '',
+                last_name: '',
+                email: '',
+                sent: false,
+                ignored: false
+            });
+        }
+    });
+
+    if (contactMap.size === 0) {
+        alert('No valid phone numbers found in the input.');
+        return;
+    }
+
+    isPlainListMode = true;
+    goToStep(3);
+}
+
+function handleStep3Back() {
+    if (isPlainListMode) {
+        goToStep(1);
+    } else {
+        goToStep(2);
+    }
 }
 
 // Custom Robust CSV Parser (Handles quotes, commas, newlines)
@@ -368,6 +530,10 @@ function goToStep(step) {
 
     // Trigger step-specific setup
     if (step === 3) {
+        const varTagsContainer = document.getElementById('variable-tags-container');
+        if (varTagsContainer) {
+            varTagsContainer.classList.toggle('d-none', isPlainListMode);
+        }
         updateTemplatePreview();
     } else if (step === 4) {
         renderContactsList();
@@ -629,6 +795,7 @@ function processAndNormalizeData() {
         return;
     }
 
+    isPlainListMode = false;
     goToStep(3);
 }
 
@@ -668,7 +835,9 @@ function updateTemplatePreview() {
     messageTemplate = textarea.value;
 
     // Get sample contact
-    let sampleContact = { first_name: 'Alex', last_name: 'Morgan', email: 'alex@example.com', phone: '+12145550123' };
+    let sampleContact = isPlainListMode
+        ? { first_name: '', last_name: '', email: '', phone: '+12145550123' }
+        : { first_name: 'Alex', last_name: 'Morgan', email: 'alex@example.com', phone: '+12145550123' };
     for (const contact of contactMap.values()) {
         if (!contact.ignored) {
             sampleContact = contact;
@@ -682,7 +851,7 @@ function updateTemplatePreview() {
 }
 
 function formatMessageForContact(template, contact) {
-    const fullName = `${contact.first_name} ${contact.last_name}`.trim();
+    const fullName = `${contact.first_name || ''} ${contact.last_name || ''}`.trim();
     let msg = template;
     msg = msg.replace(/\{first_name\}/g, contact.first_name || 'neighbor');
     msg = msg.replace(/\{last_name\}/g, contact.last_name || '');
@@ -716,14 +885,14 @@ function renderContactsList() {
         // Filter logic
         if (showUnsentOnly && contact.sent) return;
 
-        const fullName = `${contact.first_name} ${contact.last_name}`.trim();
+        const fullName = `${contact.first_name || ''} ${contact.last_name || ''}`.trim();
         if (searchQuery) {
             const matchName = fullName.toLowerCase().includes(searchQuery);
             const matchPhone = contact.phone.includes(searchQuery);
             if (!matchName && !matchPhone) return;
         }
 
-        const showPhoneAsName = fullName === 'Neighbor';
+        const showPhoneAsName = fullName === 'Neighbor' || fullName === '';
 
         visibleCount++;
         const isSelected = selectedContacts.has(phoneKey);
@@ -770,7 +939,7 @@ function renderContactsList() {
                 `;
 
         // Attach swipe gesture listeners
-        attachSwipeListeners(wrapper.querySelector('.contact-item'), phoneKey, fullName);
+        attachSwipeListeners(wrapper.querySelector('.contact-item'), phoneKey, fullName || contact.phone);
 
         listContainer.appendChild(wrapper);
     });

@@ -47,14 +47,37 @@
                         <i class="bi bi-cloud-arrow-up text-secondary display-5 mb-2"></i>
                         <span class="fw-semibold text-secondary small" id="file-name-display">Select a CSV contact list from your phone or device to generate custom SMS links.</span>
                         <span class="text-muted small mt-1" id="file-size-display"></span>
-                        <input type="file" id="csv-file-input" accept=".csv,text/csv" class="d-none">
+                        <input type="file" id="csv-file-input" accept=".csv,text/csv,text/plain" class="d-none">
+                    </div>
+
+                    <!-- Manual Input Textarea -->
+                    <div>
+                        <label class="form-label fw-semibold small text-secondary mb-1" for="manual-contacts-input">Or enter contact list manually</label>
+                        <textarea id="manual-contacts-input" class="form-control auto-resize h-scroll" rows="4"
+                            placeholder="Paste CSV data or plain phone numbers..." oninput="updateStep1NextButton()"></textarea>
+                    </div>
+
+                    <!-- Input Format Radio Group -->
+                    <div class="bg-light border rounded-3 p-2 d-flex flex-column gap-2">
+                        <div class="form-check mb-0">
+                            <input class="form-check-input cursor-pointer" type="radio" name="inputFormatMode" id="mode-row-per-contact" value="row-per-contact" checked onchange="handleInputModeChange()">
+                            <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="mode-row-per-contact">
+                                One row per contact
+                            </label>
+                        </div>
+                        <div class="form-check mb-0">
+                            <input class="form-check-input cursor-pointer" type="radio" name="inputFormatMode" id="mode-plain-phone-list" value="plain-phone-list" onchange="handleInputModeChange()">
+                            <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="mode-plain-phone-list">
+                                Plain list of phone numbers
+                            </label>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Step 1 Actions (Only visible when file selected) -->
+                <!-- Step 1 Actions (Only visible when file selected or text entered) -->
                 <div class="pt-3">
-                    <button id="btn-step-1-next" onclick="goToStep(2)" class="btn btn-success btn-lg w-100 d-none align-items-center justify-content-center gap-2">
-                        <span>Continue to column mapping</span>
+                    <button id="btn-step-1-next" onclick="handleStep1Continue()" class="btn btn-success btn-lg w-100 d-none align-items-center justify-content-center gap-2">
+                        <span id="btn-step-1-next-text">Continue to column mapping</span>
                         <i class="bi bi-arrow-right"></i>
                     </button>
                 </div>
@@ -132,11 +155,11 @@
                 <div class="d-flex flex-column gap-2">
                     <div>
                         <label class="form-label fw-semibold small text-secondary mb-1" for="message-template-input">Message Template</label>
-                        <textarea id="message-template-input" class="form-control mb-3" rows="4"
+                        <textarea id="message-template-input" class="form-control mb-3 auto-resize"
                             placeholder="Write your SMS message..." oninput="updateTemplatePreview()"></textarea>
 
                         <!-- Variable Insert Pills -->
-                        <div class="mt-2">
+                        <div class="mt-2" id="variable-tags-container">
                             <div class="text-uppercase small fw-bold text-muted mb-1" style="font-size: 0.7rem; letter-spacing: 0.05em;">Insert Variable Tag</div>
                             <div class="d-flex flex-wrap gap-1">
                                 <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 font-monospace" style="font-size: 0.75rem;" onclick="insertTemplateVariable('{first_name}')">{first_name}</button>
@@ -158,7 +181,7 @@
                 <div class="pt-3">
                     <div class="row g-2">
                         <div class="col-4">
-                            <button type="button" onclick="goToStep(2)" class="btn btn-outline-secondary w-100">
+                            <button type="button" onclick="handleStep3Back()" class="btn btn-outline-secondary w-100">
                                 Back
                             </button>
                         </div>
