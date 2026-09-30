@@ -63,17 +63,18 @@
             <!-- STEP 2: Map Columns -->
             <section id="step-2" class="step-panel flex-grow-1 d-none">
                 <div class="d-flex flex-column gap-2">
+
+                    <div class="d-flex align-items-center rounded-3 mb-1 gap-2">
+                        <span class="small fw-semibold text-secondary">Detected columns:</span>
+                        <span id="detected-column-count" class="badge bg-dark">0</span>
+                    </div>
+
                     <!-- First row is header row toggle -->
-                    <div class="form-check form-switch bg-light border rounded-3 p-2 px-3 d-flex align-items-center justify-content-between m-0">
+                    <div class="form-check form-switch bg-light border rounded-3 p-2 gap-2 d-flex align-items-center m-0">
+                        <input type="checkbox" id="header-row-checkbox" class="form-check-input ms-0 mt-0" onchange="handleHeaderRowToggle()">
                         <label class="form-check-label fw-semibold small text-dark mb-0 cursor-pointer" for="header-row-checkbox">
                             First row is header row
                         </label>
-                        <input type="checkbox" id="header-row-checkbox" class="form-check-input ms-0 mt-0" onchange="handleHeaderRowToggle()">
-                    </div>
-
-                    <div class="alert alert-secondary py-2 px-3 d-flex justify-content-between align-items-center rounded-3 mb-1">
-                        <span class="small fw-semibold text-secondary">Detected Columns:</span>
-                        <span id="detected-column-count" class="badge bg-dark">0</span>
                     </div>
 
                     <!-- Mapping Selectors -->
