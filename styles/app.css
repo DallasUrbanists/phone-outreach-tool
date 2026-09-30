@@ -140,3 +140,7 @@
     display: none !important;
 }
 
+/* --- Auto height textarea --- */
+#message-template-input {
+    field-sizing: content;
+}

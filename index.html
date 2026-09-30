@@ -133,7 +133,7 @@
                 <div class="d-flex flex-column gap-2">
                     <div>
                         <label class="form-label fw-semibold small text-secondary mb-1" for="message-template-input">Message Template</label>
-                        <textarea id="message-template-input" class="form-control" rows="4"
+                        <textarea id="message-template-input" class="form-control mb-3" rows="4"
                             placeholder="Write your SMS message..." oninput="updateTemplatePreview()"></textarea>
 
                         <!-- Variable Insert Pills -->
@@ -149,7 +149,7 @@
 
                         <!-- Live Preview Card -->
                         <div class="card bg-light border rounded-3 p-3 mt-3">
-                            <div class="text-uppercase small fw-bold text-muted mb-1" style="font-size: 0.7rem; letter-spacing: 0.05em;">Live Preview (First Contact)</div>
+                            <div class="text-uppercase small fw-bold text-muted mb-1" style="font-size: 0.7rem; letter-spacing: 0.05em;">Preview first contact</div>
                             <div class="small text-dark text-break" id="template-preview-text" style="white-space: pre-wrap;"></div>
                         </div>
                     </div>
@@ -176,12 +176,12 @@
             <!-- STEP 4: Outreach List (Swipe, Select, Copy) -->
             <section id="step-4" class="step-panel flex-grow-1 d-none" style="min-height: 0;">
                 <!-- Summary / Counter bar -->
-                <div class="card bg-dark text-white p-3 rounded-3 mb-2 shadow-sm flex-shrink-0 border-0">
+                <div class="text-white mb-3 shadow-sm flex-shrink-0 border-0">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <span class="text-uppercase small fw-bold text-secondary" style="font-size: 0.7rem; letter-spacing: 0.05em;">Progress</span>
                         <span class="fw-bold text-success small" id="progress-text">0 / 0 Contacted</span>
                     </div>
-                    <div class="progress bg-secondary" style="height: 6px;" role="progressbar" aria-label="Outreach Progress">
+                    <div class="progress" style="height: 12px;" role="progressbar" aria-label="Outreach Progress">
                         <div id="progress-bar" class="progress-bar bg-success" style="width: 0%;"></div>
                     </div>
                 </div>
@@ -227,10 +227,10 @@
                         <!-- Copy Selected Button (Only visible when selected >= 1) -->
                         <button type="button" id="btn-copy-selected" onclick="copySelectedEmails()" class="btn btn-primary btn-sm d-none align-items-center gap-1">
                             <i class="bi bi-clipboard"></i>
-                            <span>Copy Selected (<span id="selected-count-display">0</span>)</span>
+                            <span>Copy selected (<span id="selected-count-display">0</span>)</span>
                         </button>
                         <button type="button" onclick="resetProgress()" class="btn btn-outline-dark btn-sm flex-grow-1">
-                            Reset Checkmarks
+                            Reset checkmarks
                         </button>
                     </div>
                 </div>
