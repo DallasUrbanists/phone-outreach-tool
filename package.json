@@ -1,0 +1,19 @@
+{
+  "name": "phone-outreach-tool",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/DallasUrbanists/phone-outreach-tool.git"
+  },
+  "author": "Hexel Colorado",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DallasUrbanists/phone-outreach-tool/issues"
+  },
+  "homepage": "https://github.com/DallasUrbanists/phone-outreach-tool#readme",
+  "description": ""
+}
