@@ -1,3 +1,6 @@
+// Storage Key
+const STORAGE_KEY = 'sms_outreach_tool_state';
+
 // Core State Variables
 let rawCsvLines = [];
 let rawCsvHeader = [];
@@ -6,9 +9,12 @@ let contactMap = new Map(); // Key: normalized phone, Value: { first_name, last_
 let selectedContacts = new Set(); // Key: normalized phone
 let currentStep = 1;
 let showUnsentOnly = false;
+let fileName = '';
+let fileSize = '';
 
 // Default Message Template
-let messageTemplate = `Hi {first_name}! Tonight the Uptown/Oak Lawn Hyperlocal Conversation will meet at Mike's Chicken at 6:30pm, *not Whole Foods*. Call/text this number for help finding us. RSVP: https://www.meetup.com/dallasurbanists/events/316375035/`;
+const DEFAULT_MESSAGE_TEMPLATE = `Hi {first_name}! Just letting you know about our event tomorrow!`;
+let messageTemplate = DEFAULT_MESSAGE_TEMPLATE;
 
 // Initialize textarea with default template
 document.getElementById('message-template-input').value = messageTemplate;
@@ -16,12 +22,178 @@ document.getElementById('message-template-input').value = messageTemplate;
 // File Input Event Listener
 document.getElementById('csv-file-input').addEventListener('change', handleFileSelect);
 
+// Scroll tracking elements
+const mainContentEl = document.getElementById('main-content');
+const contactsScrollEl = document.getElementById('contacts-scroll-container');
+
+if (mainContentEl) {
+    mainContentEl.addEventListener('scroll', saveScrollPositions, { passive: true });
+}
+if (contactsScrollEl) {
+    contactsScrollEl.addEventListener('scroll', saveScrollPositions, { passive: true });
+}
+window.addEventListener('beforeunload', saveStateToLocalStorage);
+
+// --- Local Storage Management ---
+
+function saveScrollPositions() {
+    try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return;
+        const state = JSON.parse(raw);
+        state.scrollTopMain = mainContentEl ? mainContentEl.scrollTop : 0;
+        state.scrollTopContacts = contactsScrollEl ? contactsScrollEl.scrollTop : 0;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (_) {}
+}
+
+function saveStateToLocalStorage() {
+    try {
+        if (rawCsvLines.length === 0 && contactMap.size === 0 && currentStep === 1 && !fileName) {
+            localStorage.removeItem(STORAGE_KEY);
+            return;
+        }
+        const state = {
+            currentStep,
+            rawCsvLines,
+            rawCsvHeader,
+            rawCsvRows,
+            fileName,
+            fileSize,
+            headerRowChecked: document.getElementById('header-row-checkbox').checked,
+            mapFirstName: document.getElementById('map-first-name').value,
+            mapLastName: document.getElementById('map-last-name').value,
+            mapPhone: document.getElementById('map-phone').value,
+            mapEmail: document.getElementById('map-email').value,
+            messageTemplate: document.getElementById('message-template-input').value,
+            contactMap: Array.from(contactMap.entries()),
+            selectedContacts: Array.from(selectedContacts),
+            searchQuery: document.getElementById('contact-search').value,
+            showUnsentOnly,
+            scrollTopMain: mainContentEl ? mainContentEl.scrollTop : 0,
+            scrollTopContacts: contactsScrollEl ? contactsScrollEl.scrollTop : 0
+        };
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    } catch (e) {
+        console.error('Error saving state to localStorage', e);
+    }
+}
+
+function loadStateFromLocalStorage() {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (!raw) {
+        document.getElementById('message-template-input').value = DEFAULT_MESSAGE_TEMPLATE;
+        return;
+    }
+
+    try {
+        const state = JSON.parse(raw);
+        rawCsvLines = state.rawCsvLines || [];
+        rawCsvHeader = state.rawCsvHeader || [];
+        rawCsvRows = state.rawCsvRows || [];
+        fileName = state.fileName || '';
+        fileSize = state.fileSize || '';
+        currentStep = state.currentStep || 1;
+        showUnsentOnly = !!state.showUnsentOnly;
+
+        if (fileName) {
+            document.getElementById('file-name-display').textContent = fileName;
+            document.getElementById('file-size-display').textContent = fileSize;
+            document.getElementById('btn-step-1-next').classList.remove('d-none');
+        }
+
+        document.getElementById('header-row-checkbox').checked = state.headerRowChecked ?? true;
+
+        if (rawCsvLines.length > 0) {
+            populateColumnDropdowns();
+            if (state.mapFirstName !== undefined) document.getElementById('map-first-name').value = state.mapFirstName;
+            if (state.mapLastName !== undefined) document.getElementById('map-last-name').value = state.mapLastName;
+            if (state.mapPhone !== undefined) document.getElementById('map-phone').value = state.mapPhone;
+            if (state.mapEmail !== undefined) document.getElementById('map-email').value = state.mapEmail;
+            validateStep2();
+        }
+
+        messageTemplate = state.messageTemplate || DEFAULT_MESSAGE_TEMPLATE;
+        document.getElementById('message-template-input').value = messageTemplate;
+
+        if (Array.isArray(state.contactMap)) {
+            contactMap = new Map(state.contactMap);
+        }
+        if (Array.isArray(state.selectedContacts)) {
+            selectedContacts = new Set(state.selectedContacts);
+        }
+
+        document.getElementById('contact-search').value = state.searchQuery || '';
+
+        const filterBtn = document.getElementById('btn-filter-sent');
+        filterBtn.textContent = showUnsentOnly ? 'Unsent' : 'All';
+        filterBtn.className = showUnsentOnly ? 'btn btn-sm btn-success' : 'btn btn-sm btn-outline-secondary';
+
+        goToStep(currentStep);
+
+        // Restore scroll positions after render
+        requestAnimationFrame(() => {
+            if (mainContentEl && state.scrollTopMain) {
+                mainContentEl.scrollTop = state.scrollTopMain;
+            }
+            if (contactsScrollEl && state.scrollTopContacts) {
+                contactsScrollEl.scrollTop = state.scrollTopContacts;
+            }
+        });
+    } catch (e) {
+        console.error('Error loading state from localStorage', e);
+    }
+}
+
+function startOver() {
+    const confirmed = confirm('Are you sure you want to start over? This will delete all records from your device.');
+    if (!confirmed) return;
+
+    localStorage.removeItem(STORAGE_KEY);
+
+    rawCsvLines = [];
+    rawCsvHeader = [];
+    rawCsvRows = [];
+    contactMap.clear();
+    selectedContacts.clear();
+    showUnsentOnly = false;
+    fileName = '';
+    fileSize = '';
+
+    document.getElementById('csv-file-input').value = '';
+    document.getElementById('file-name-display').textContent = 'Select a CSV contact list from your phone or device to generate custom SMS links.';
+    document.getElementById('file-size-display').textContent = '';
+    document.getElementById('btn-step-1-next').classList.add('d-none');
+
+    document.getElementById('detected-column-count').textContent = '0';
+    document.getElementById('header-row-checkbox').checked = false;
+    document.getElementById('map-first-name').innerHTML = '<option value="">-- First / Full Name --</option>';
+    document.getElementById('map-last-name').innerHTML = '<option value="">-- Last Name (Optional) --</option>';
+    document.getElementById('map-phone').innerHTML = '<option value="">-- Select Phone Column --</option>';
+    document.getElementById('map-email').innerHTML = '<option value="">-- Select Email Column --</option>';
+    document.getElementById('btn-process-contacts').disabled = true;
+
+    messageTemplate = DEFAULT_MESSAGE_TEMPLATE;
+    document.getElementById('message-template-input').value = DEFAULT_MESSAGE_TEMPLATE;
+    document.getElementById('contact-search').value = '';
+
+    const filterBtn = document.getElementById('btn-filter-sent');
+    filterBtn.textContent = 'All';
+    filterBtn.className = 'btn btn-sm btn-outline-secondary';
+
+    goToStep(1);
+    showToast('All stored records and settings have been cleared.');
+}
+
 function handleFileSelect(e) {
     const file = e.target.files[0];
     if (!file) return;
 
-    document.getElementById('file-name-display').textContent = file.name;
-    document.getElementById('file-size-display').textContent = `${(file.size / 1024).toFixed(1)} KB`;
+    fileName = file.name;
+    fileSize = `${(file.size / 1024).toFixed(1)} KB`;
+
+    document.getElementById('file-name-display').textContent = fileName;
+    document.getElementById('file-size-display').textContent = fileSize;
 
     const reader = new FileReader();
     reader.onload = function (evt) {
@@ -105,11 +277,13 @@ function parseCSVContent(text) {
     // Make Step 1 next button visible
     const nextBtn = document.getElementById('btn-step-1-next');
     nextBtn.classList.remove('d-none');
+    saveStateToLocalStorage();
 }
 
 function handleHeaderRowToggle() {
     if (rawCsvLines.length > 0) {
         populateColumnDropdowns();
+        saveStateToLocalStorage();
     }
 }
 
@@ -150,6 +324,8 @@ function goToStep(step) {
     } else if (step === 4) {
         renderContactsList();
     }
+
+    saveStateToLocalStorage();
 }
 
 function populateColumnDropdowns() {
@@ -262,6 +438,7 @@ function validateStep2() {
     const phoneIdx = document.getElementById('map-phone').value;
     const processBtn = document.getElementById('btn-process-contacts');
     processBtn.disabled = phoneIdx === "";
+    saveStateToLocalStorage();
 }
 
 function processAndNormalizeData() {
@@ -374,6 +551,7 @@ function updateTemplatePreview() {
 
     const previewText = formatMessageForContact(messageTemplate, sampleContact);
     document.getElementById('template-preview-text').textContent = previewText || '(Empty message)';
+    saveStateToLocalStorage();
 }
 
 function formatMessageForContact(template, contact) {
@@ -491,6 +669,8 @@ function renderContactsList() {
     } else {
         selectAllBtn.className = 'btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center';
     }
+
+    saveStateToLocalStorage();
 }
 
 // Swipe Interaction Implementation
@@ -781,3 +961,6 @@ function escapeHtml(str) {
         .replace(/"/g, "&quot;")
         .replace(/'/g, "&#039;");
 }
+
+// Initialize state on page load
+loadStateFromLocalStorage();

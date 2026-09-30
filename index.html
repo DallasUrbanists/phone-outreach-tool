@@ -213,7 +213,7 @@
 
                 <!-- Contacts Table Container -->
                 <div class="card border rounded-3 overflow-hidden flex-grow-1 d-flex flex-column mb-2 bg-white" style="min-height: 0;">
-                    <div class="overflow-y-auto custom-scroll flex-grow-1">
+                    <div id="contacts-scroll-container" class="overflow-y-auto custom-scroll flex-grow-1">
                         <div id="contacts-list" class="list-group list-group-flush"></div>
                     </div>
                 </div>
@@ -231,6 +231,9 @@
                         </button>
                         <button type="button" onclick="resetProgress()" class="btn btn-outline-dark btn-sm flex-grow-1">
                             Reset checkmarks
+                        </button>
+                        <button type="button" onclick="startOver()" class="btn btn-outline-danger btn-sm">
+                            Start over
                         </button>
                     </div>
                 </div>
