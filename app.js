@@ -1,5 +1,6 @@
 // Storage Key
 const STORAGE_KEY = 'sms_outreach_tool_state';
+const EXPAND_TOOLTIP_SESSION_KEY = 'sms_outreach_expand_tooltip_shown';
 
 // Core State Variables
 let rawCsvLines = [];
@@ -10,6 +11,7 @@ let selectedContacts = new Set(); // Key: normalized phone
 let currentStep = 1;
 let showUnsentOnly = false;
 let isExpanded = false;
+let isTooltipDismissListenerActive = false;
 let fileName = '';
 let fileSize = '';
 
@@ -180,6 +182,7 @@ function startOver() {
     if (!confirmed) return;
 
     localStorage.removeItem(STORAGE_KEY);
+    dismissExpandTooltip();
 
     rawCsvLines = [];
     rawCsvHeader = [];
@@ -327,9 +330,12 @@ function handleHeaderRowToggle() {
 function goToStep(step) {
     currentStep = step;
 
-    if (step !== 4 && isExpanded) {
-        isExpanded = false;
-        updateExpandState();
+    if (step !== 4) {
+        dismissExpandTooltip();
+        if (isExpanded) {
+            isExpanded = false;
+            updateExpandState();
+        }
     }
 
     // Hide all steps
@@ -365,12 +371,63 @@ function goToStep(step) {
         updateTemplatePreview();
     } else if (step === 4) {
         renderContactsList();
+        showExpandTooltipIfNeeded();
     }
 
     saveStateToLocalStorage();
 }
 
+function showExpandTooltipIfNeeded() {
+    if (sessionStorage.getItem(EXPAND_TOOLTIP_SESSION_KEY)) return;
+    if (isExpanded) return;
+
+    const tooltip = document.getElementById('expand-tooltip');
+    if (!tooltip) return;
+
+    sessionStorage.setItem(EXPAND_TOOLTIP_SESSION_KEY, 'true');
+    tooltip.classList.remove('d-none');
+
+    setTimeout(() => {
+        if (!isTooltipDismissListenerActive && tooltip && !tooltip.classList.contains('d-none')) {
+            isTooltipDismissListenerActive = true;
+            document.addEventListener('pointerdown', handleTooltipDismiss, { capture: true });
+            document.addEventListener('click', handleTooltipDismiss, { capture: true });
+            if (contactsScrollEl) {
+                contactsScrollEl.addEventListener('scroll', handleTooltipDismiss, { passive: true });
+            }
+            if (mainContentEl) {
+                mainContentEl.addEventListener('scroll', handleTooltipDismiss, { passive: true });
+            }
+            window.addEventListener('scroll', handleTooltipDismiss, { passive: true });
+        }
+    }, 50);
+}
+
+function handleTooltipDismiss() {
+    dismissExpandTooltip();
+}
+
+function dismissExpandTooltip() {
+    const tooltip = document.getElementById('expand-tooltip');
+    if (tooltip) {
+        tooltip.classList.add('d-none');
+    }
+    if (isTooltipDismissListenerActive) {
+        isTooltipDismissListenerActive = false;
+        document.removeEventListener('pointerdown', handleTooltipDismiss, { capture: true });
+        document.removeEventListener('click', handleTooltipDismiss, { capture: true });
+        if (contactsScrollEl) {
+            contactsScrollEl.removeEventListener('scroll', handleTooltipDismiss);
+        }
+        if (mainContentEl) {
+            mainContentEl.removeEventListener('scroll', handleTooltipDismiss);
+        }
+        window.removeEventListener('scroll', handleTooltipDismiss);
+    }
+}
+
 function toggleExpandContactList() {
+    dismissExpandTooltip();
     isExpanded = !isExpanded;
     updateExpandState();
     saveStateToLocalStorage();

@@ -219,7 +219,7 @@
 
                 <!-- Step 4 Footer Controls -->
                 <div id="step-4-footer" class="pt-1 flex-shrink-0">
-                    <div class="d-flex align-items-center gap-2">
+                    <div class="d-flex align-items-center gap-2 position-relative">
                         <button type="button" onclick="goToStep(3)" class="btn btn-outline-secondary btn-sm">
                             Back
                         </button>
@@ -234,9 +234,13 @@
                         <button type="button" onclick="startOver()" class="btn btn-outline-danger btn-sm">
                             Start over
                         </button>
-                        <button type="button" id="btn-toggle-expand" onclick="toggleExpandContactList()" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center" title="Expand list" aria-label="Expand contact list">
+                        <button type="button" id="btn-toggle-expand" onclick="toggleExpandContactList()" class="btn btn-outline-secondary btn-sm d-flex align-items-center justify-content-center flex-shrink-0" title="Expand list" aria-label="Expand contact list">
                             <i class="bi bi-arrows-fullscreen"></i>
                         </button>
+                        <div id="expand-tooltip" class="expand-tooltip d-none" role="tooltip">
+                            <span>Click to expand list fullscreen</span>
+                            <div class="expand-tooltip-arrow"></div>
+                        </div>
                     </div>
                 </div>
             </section>
