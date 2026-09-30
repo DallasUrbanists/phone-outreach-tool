@@ -542,11 +542,17 @@ function processAndNormalizeData() {
             }
         }
 
-        if (!firstName) firstName = 'Friend';
-
         // Normalize email
         const rawEmail = emailIdx !== "" ? (row[emailIdx] || '') : '';
         const normalizedEmail = normalizeEmail(rawEmail);
+
+        if (`${firstName ?? ''}${lastName ?? ''}`.trim() === '') {
+            if (normalizedEmail !== '') {
+                firstName = normalizedEmail;
+            } else {
+                firstName = 'Neighbor';
+            }
+        }
 
         if (!contactMap.has(normalizedPhone)) {
             contactMap.set(normalizedPhone, {
@@ -621,9 +627,9 @@ function updateTemplatePreview() {
 function formatMessageForContact(template, contact) {
     const fullName = `${contact.first_name} ${contact.last_name}`.trim();
     let msg = template;
-    msg = msg.replace(/\{first_name\}/g, contact.first_name || 'Friend');
+    msg = msg.replace(/\{first_name\}/g, contact.first_name || 'neighbor');
     msg = msg.replace(/\{last_name\}/g, contact.last_name || '');
-    msg = msg.replace(/\{full_name\}/g, fullName || 'Friend');
+    msg = msg.replace(/\{full_name\}/g, fullName || 'neighbor');
     msg = msg.replace(/\{email\}/g, contact.email || '');
     return msg;
 }
@@ -680,8 +686,8 @@ function renderContactsList() {
                     <div class="swipe-bg swipe-bg--right">
                         <span>Toggle Sent &check;</span>
                     </div>
-                    <div class="contact-item d-flex align-items-center justify-content-between p-2 px-3 bg-white ${contact.sent ? 'bg-success-subtle bg-opacity-25' : ''} ${isSelected ? 'bg-primary-subtle bg-opacity-25' : ''}">
-                        <div class="form-check me-2 mb-0 d-flex align-items-center">
+                    <div class="contact-item d-flex align-items-center justify-content-between p-2 bg-white ${contact.sent ? 'bg-success-subtle bg-opacity-25' : ''} ${isSelected ? 'bg-primary-subtle bg-opacity-25' : ''}">
+                        <div class="form-check mb-0 d-flex align-items-center">
                             <input type="checkbox" class="form-check-input contact-checkbox mt-0" ${isSelected ? 'checked' : ''} 
                                    onchange="toggleContactSelection('${phoneKey}', event)">
                         </div>
@@ -691,7 +697,7 @@ function renderContactsList() {
                                 ${contact.sent ? `<span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.65rem;">Sent</span>` : ''}
                             </div>
                             <div class="text-secondary font-monospace small" style="font-size: 0.75rem;">${escapeHtml(contact.phone)}</div>
-                            ${contact.email ? `<div class="text-muted small text-truncate" style="font-size: 0.7rem;">${escapeHtml(contact.email)}</div>` : ''}
+                            ${contact.email && contact.email !== fullName ? `<div class="text-muted small text-truncate" style="font-size: 0.7rem;">${escapeHtml(contact.email)}</div>` : ''}
                         </div>
                         <a href="${smsUri}" 
                            onclick="markAsSent('${phoneKey}')" 
