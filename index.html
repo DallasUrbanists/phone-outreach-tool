@@ -1,0 +1,1626 @@
+<!DOCTYPE html>
+<!-- saved from url=(0126)file:///C:/Users/thehe/AppData/Local/Temp/MicrosoftEdgeDownloads/28969410-8b76-4d8b-b995-d57a90bf8271/sms_outreach_wizard.html -->
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>SMS Outreach Wizard</title>
+    <style>
+        /* Custom touch-optimized and scrollbar utilities */
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #0f172a;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        /* Mobile viewport constraint simulation / container rules */
+        .app-container {
+            width: 100%;
+            max-width: 384px;
+            height: 100vh;
+            max-height: 692px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        /* Custom smooth scrollbar for table list */
+        .custom-scroll::-webkit-scrollbar {
+            width: 4px;
+        }
+
+        .custom-scroll::-webkit-scrollbar-track {
+            background: #f1f5f9;
+        }
+
+        .custom-scroll::-webkit-scrollbar-thumb {
+            background: #cbd5e1;
+            border-radius: 2px;
+        }
+    </style>
+    <style>
+        *,
+        ::before,
+        ::after {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+            --tw-contain-size: ;
+            --tw-contain-layout: ;
+            --tw-contain-paint: ;
+            --tw-contain-style:
+        }
+
+        ::backdrop {
+            --tw-border-spacing-x: 0;
+            --tw-border-spacing-y: 0;
+            --tw-translate-x: 0;
+            --tw-translate-y: 0;
+            --tw-rotate: 0;
+            --tw-skew-x: 0;
+            --tw-skew-y: 0;
+            --tw-scale-x: 1;
+            --tw-scale-y: 1;
+            --tw-pan-x: ;
+            --tw-pan-y: ;
+            --tw-pinch-zoom: ;
+            --tw-scroll-snap-strictness: proximity;
+            --tw-gradient-from-position: ;
+            --tw-gradient-via-position: ;
+            --tw-gradient-to-position: ;
+            --tw-ordinal: ;
+            --tw-slashed-zero: ;
+            --tw-numeric-figure: ;
+            --tw-numeric-spacing: ;
+            --tw-numeric-fraction: ;
+            --tw-ring-inset: ;
+            --tw-ring-offset-width: 0px;
+            --tw-ring-offset-color: #fff;
+            --tw-ring-color: rgb(59 130 246 / 0.5);
+            --tw-ring-offset-shadow: 0 0 #0000;
+            --tw-ring-shadow: 0 0 #0000;
+            --tw-shadow: 0 0 #0000;
+            --tw-shadow-colored: 0 0 #0000;
+            --tw-blur: ;
+            --tw-brightness: ;
+            --tw-contrast: ;
+            --tw-grayscale: ;
+            --tw-hue-rotate: ;
+            --tw-invert: ;
+            --tw-saturate: ;
+            --tw-sepia: ;
+            --tw-drop-shadow: ;
+            --tw-backdrop-blur: ;
+            --tw-backdrop-brightness: ;
+            --tw-backdrop-contrast: ;
+            --tw-backdrop-grayscale: ;
+            --tw-backdrop-hue-rotate: ;
+            --tw-backdrop-invert: ;
+            --tw-backdrop-opacity: ;
+            --tw-backdrop-saturate: ;
+            --tw-backdrop-sepia: ;
+            --tw-contain-size: ;
+            --tw-contain-layout: ;
+            --tw-contain-paint: ;
+            --tw-contain-style:
+        }
+
+        /* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */
+        *,
+        ::after,
+        ::before {
+            box-sizing: border-box;
+            border-width: 0;
+            border-style: solid;
+            border-color: #e5e7eb
+        }
+
+        ::after,
+        ::before {
+            --tw-content: ''
+        }
+
+        :host,
+        html {
+            line-height: 1.5;
+            -webkit-text-size-adjust: 100%;
+            -moz-tab-size: 4;
+            tab-size: 4;
+            font-family: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        body {
+            margin: 0;
+            line-height: inherit
+        }
+
+        hr {
+            height: 0;
+            color: inherit;
+            border-top-width: 1px
+        }
+
+        abbr:where([title]) {
+            -webkit-text-decoration: underline dotted;
+            text-decoration: underline dotted
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-size: inherit;
+            font-weight: inherit
+        }
+
+        a {
+            color: inherit;
+            text-decoration: inherit
+        }
+
+        b,
+        strong {
+            font-weight: bolder
+        }
+
+        code,
+        kbd,
+        pre,
+        samp {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+            font-feature-settings: normal;
+            font-variation-settings: normal;
+            font-size: 1em
+        }
+
+        small {
+            font-size: 80%
+        }
+
+        sub,
+        sup {
+            font-size: 75%;
+            line-height: 0;
+            position: relative;
+            vertical-align: baseline
+        }
+
+        sub {
+            bottom: -.25em
+        }
+
+        sup {
+            top: -.5em
+        }
+
+        table {
+            text-indent: 0;
+            border-color: inherit;
+            border-collapse: collapse
+        }
+
+        button,
+        input,
+        optgroup,
+        select,
+        textarea {
+            font-family: inherit;
+            font-feature-settings: inherit;
+            font-variation-settings: inherit;
+            font-size: 100%;
+            font-weight: inherit;
+            line-height: inherit;
+            letter-spacing: inherit;
+            color: inherit;
+            margin: 0;
+            padding: 0
+        }
+
+        button,
+        select {
+            text-transform: none
+        }
+
+        button,
+        input:where([type=button]),
+        input:where([type=reset]),
+        input:where([type=submit]) {
+            -webkit-appearance: button;
+            background-color: transparent;
+            background-image: none
+        }
+
+        :-moz-focusring {
+            outline: auto
+        }
+
+        :-moz-ui-invalid {
+            box-shadow: none
+        }
+
+        progress {
+            vertical-align: baseline
+        }
+
+        ::-webkit-inner-spin-button,
+        ::-webkit-outer-spin-button {
+            height: auto
+        }
+
+        [type=search] {
+            -webkit-appearance: textfield;
+            outline-offset: -2px
+        }
+
+        ::-webkit-search-decoration {
+            -webkit-appearance: none
+        }
+
+        ::-webkit-file-upload-button {
+            -webkit-appearance: button;
+            font: inherit
+        }
+
+        summary {
+            display: list-item
+        }
+
+        blockquote,
+        dd,
+        dl,
+        figure,
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6,
+        hr,
+        p,
+        pre {
+            margin: 0
+        }
+
+        fieldset {
+            margin: 0;
+            padding: 0
+        }
+
+        legend {
+            padding: 0
+        }
+
+        menu,
+        ol,
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0
+        }
+
+        dialog {
+            padding: 0
+        }
+
+        textarea {
+            resize: vertical
+        }
+
+        input::placeholder,
+        textarea::placeholder {
+            opacity: 1;
+            color: #9ca3af
+        }
+
+        [role=button],
+        button {
+            cursor: pointer
+        }
+
+        :disabled {
+            cursor: default
+        }
+
+        audio,
+        canvas,
+        embed,
+        iframe,
+        img,
+        object,
+        svg,
+        video {
+            display: block;
+            vertical-align: middle
+        }
+
+        img,
+        video {
+            max-width: 100%;
+            height: auto
+        }
+
+        [hidden]:where(:not([hidden=until-found])) {
+            display: none
+        }
+
+        .absolute {
+            position: absolute
+        }
+
+        .relative {
+            position: relative
+        }
+
+        .left-2\.5 {
+            left: 0.625rem
+        }
+
+        .top-2\.5 {
+            top: 0.625rem
+        }
+
+        .col-span-2 {
+            grid-column: span 2 / span 2
+        }
+
+        .mb-1 {
+            margin-bottom: 0.25rem
+        }
+
+        .mb-2 {
+            margin-bottom: 0.5rem
+        }
+
+        .mt-0\.5 {
+            margin-top: 0.125rem
+        }
+
+        .mt-1 {
+            margin-top: 0.25rem
+        }
+
+        .block {
+            display: block
+        }
+
+        .flex {
+            display: flex
+        }
+
+        .inline-flex {
+            display: inline-flex
+        }
+
+        .grid {
+            display: grid
+        }
+
+        .hidden {
+            display: none
+        }
+
+        .h-0\.5 {
+            height: 0.125rem
+        }
+
+        .h-10 {
+            height: 2.5rem
+        }
+
+        .h-11 {
+            height: 2.75rem
+        }
+
+        .h-2 {
+            height: 0.5rem
+        }
+
+        .h-4 {
+            height: 1rem
+        }
+
+        .h-6 {
+            height: 1.5rem
+        }
+
+        .h-9 {
+            height: 2.25rem
+        }
+
+        .h-full {
+            height: 100%
+        }
+
+        .h-3\.5 {
+            height: 0.875rem
+        }
+
+        .min-h-0 {
+            min-height: 0px
+        }
+
+        .min-h-\[44px\] {
+            min-height: 44px
+        }
+
+        .min-h-\[48px\] {
+            min-height: 48px
+        }
+
+        .min-h-screen {
+            min-height: 100vh
+        }
+
+        .min-h-\[40px\] {
+            min-height: 40px
+        }
+
+        .w-0 {
+            width: 0px
+        }
+
+        .w-1\.5 {
+            width: 0.375rem
+        }
+
+        .w-1\/3 {
+            width: 33.333333%
+        }
+
+        .w-10 {
+            width: 2.5rem
+        }
+
+        .w-4 {
+            width: 1rem
+        }
+
+        .w-6 {
+            width: 1.5rem
+        }
+
+        .w-full {
+            width: 100%
+        }
+
+        .w-3\.5 {
+            width: 0.875rem
+        }
+
+        .min-w-0 {
+            min-width: 0px
+        }
+
+        .flex-1 {
+            flex: 1 1 0%
+        }
+
+        .shrink-0 {
+            flex-shrink: 0
+        }
+
+        .cursor-not-allowed {
+            cursor: not-allowed
+        }
+
+        .cursor-pointer {
+            cursor: pointer
+        }
+
+        .grid-cols-2 {
+            grid-template-columns: repeat(2, minmax(0, 1fr))
+        }
+
+        .grid-cols-3 {
+            grid-template-columns: repeat(3, minmax(0, 1fr))
+        }
+
+        .flex-col {
+            flex-direction: column
+        }
+
+        .items-center {
+            align-items: center
+        }
+
+        .justify-center {
+            justify-content: center
+        }
+
+        .justify-between {
+            justify-content: space-between
+        }
+
+        .gap-2 {
+            gap: 0.5rem
+        }
+
+        .space-x-1> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 0;
+            margin-right: calc(0.25rem * var(--tw-space-x-reverse));
+            margin-left: calc(0.25rem * calc(1 - var(--tw-space-x-reverse)))
+        }
+
+        .space-x-1\.5> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 0;
+            margin-right: calc(0.375rem * var(--tw-space-x-reverse));
+            margin-left: calc(0.375rem * calc(1 - var(--tw-space-x-reverse)))
+        }
+
+        .space-x-2> :not([hidden])~ :not([hidden]) {
+            --tw-space-x-reverse: 0;
+            margin-right: calc(0.5rem * var(--tw-space-x-reverse));
+            margin-left: calc(0.5rem * calc(1 - var(--tw-space-x-reverse)))
+        }
+
+        .space-y-3> :not([hidden])~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(0.75rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(0.75rem * var(--tw-space-y-reverse))
+        }
+
+        .space-y-4> :not([hidden])~ :not([hidden]) {
+            --tw-space-y-reverse: 0;
+            margin-top: calc(1rem * calc(1 - var(--tw-space-y-reverse)));
+            margin-bottom: calc(1rem * var(--tw-space-y-reverse))
+        }
+
+        .divide-y> :not([hidden])~ :not([hidden]) {
+            --tw-divide-y-reverse: 0;
+            border-top-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+            border-bottom-width: calc(1px * var(--tw-divide-y-reverse))
+        }
+
+        .divide-slate-100> :not([hidden])~ :not([hidden]) {
+            --tw-divide-opacity: 1;
+            border-color: rgb(241 245 249 / var(--tw-divide-opacity, 1))
+        }
+
+        .overflow-hidden {
+            overflow: hidden
+        }
+
+        .overflow-y-auto {
+            overflow-y: auto
+        }
+
+        .truncate {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap
+        }
+
+        .whitespace-nowrap {
+            white-space: nowrap
+        }
+
+        .rounded-full {
+            border-radius: 9999px
+        }
+
+        .rounded-lg {
+            border-radius: 0.5rem
+        }
+
+        .rounded-xl {
+            border-radius: 0.75rem
+        }
+
+        .rounded {
+            border-radius: 0.25rem
+        }
+
+        .border {
+            border-width: 1px
+        }
+
+        .border-2 {
+            border-width: 2px
+        }
+
+        .border-dashed {
+            border-style: dashed
+        }
+
+        .border-emerald-100 {
+            --tw-border-opacity: 1;
+            border-color: rgb(209 250 229 / var(--tw-border-opacity, 1))
+        }
+
+        .border-slate-200 {
+            --tw-border-opacity: 1;
+            border-color: rgb(226 232 240 / var(--tw-border-opacity, 1))
+        }
+
+        .border-slate-300 {
+            --tw-border-opacity: 1;
+            border-color: rgb(203 213 225 / var(--tw-border-opacity, 1))
+        }
+
+        .border-slate-700 {
+            --tw-border-opacity: 1;
+            border-color: rgb(51 65 85 / var(--tw-border-opacity, 1))
+        }
+
+        .border-emerald-600 {
+            --tw-border-opacity: 1;
+            border-color: rgb(5 150 105 / var(--tw-border-opacity, 1))
+        }
+
+        .bg-emerald-400 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(52 211 153 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-emerald-50 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(236 253 245 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-emerald-500 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(16 185 129 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-emerald-600 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(5 150 105 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-slate-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-slate-50 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-slate-700 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(51 65 85 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-slate-800 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(30 41 59 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-slate-900 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(15 23 42 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-white {
+            --tw-bg-opacity: 1;
+            background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-emerald-100 {
+            --tw-bg-opacity: 1;
+            background-color: rgb(209 250 229 / var(--tw-bg-opacity, 1))
+        }
+
+        .bg-emerald-50\/60 {
+            background-color: rgb(236 253 245 / 0.6)
+        }
+
+        .p-0 {
+            padding: 0px
+        }
+
+        .p-2\.5 {
+            padding: 0.625rem
+        }
+
+        .p-3 {
+            padding: 0.75rem
+        }
+
+        .p-4 {
+            padding: 1rem
+        }
+
+        .p-5 {
+            padding: 1.25rem
+        }
+
+        .px-2 {
+            padding-left: 0.5rem;
+            padding-right: 0.5rem
+        }
+
+        .px-2\.5 {
+            padding-left: 0.625rem;
+            padding-right: 0.625rem
+        }
+
+        .px-3 {
+            padding-left: 0.75rem;
+            padding-right: 0.75rem
+        }
+
+        .px-4 {
+            padding-left: 1rem;
+            padding-right: 1rem
+        }
+
+        .py-2\.5 {
+            padding-top: 0.625rem;
+            padding-bottom: 0.625rem
+        }
+
+        .py-3 {
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem
+        }
+
+        .py-1\.5 {
+            padding-top: 0.375rem;
+            padding-bottom: 0.375rem
+        }
+
+        .px-1\.5 {
+            padding-left: 0.375rem;
+            padding-right: 0.375rem
+        }
+
+        .py-0\.5 {
+            padding-top: 0.125rem;
+            padding-bottom: 0.125rem
+        }
+
+        .pl-8 {
+            padding-left: 2rem
+        }
+
+        .pr-3 {
+            padding-right: 0.75rem
+        }
+
+        .pt-1 {
+            padding-top: 0.25rem
+        }
+
+        .pt-2 {
+            padding-top: 0.5rem
+        }
+
+        .pr-2 {
+            padding-right: 0.5rem
+        }
+
+        .text-center {
+            text-align: center
+        }
+
+        .font-mono {
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace
+        }
+
+        .text-\[10px\] {
+            font-size: 10px
+        }
+
+        .text-\[11px\] {
+            font-size: 11px
+        }
+
+        .text-base {
+            font-size: 1rem;
+            line-height: 1.5rem
+        }
+
+        .text-sm {
+            font-size: 0.875rem;
+            line-height: 1.25rem
+        }
+
+        .text-xs {
+            font-size: 0.75rem;
+            line-height: 1rem
+        }
+
+        .text-\[9px\] {
+            font-size: 9px
+        }
+
+        .font-bold {
+            font-weight: 700
+        }
+
+        .font-medium {
+            font-weight: 500
+        }
+
+        .font-semibold {
+            font-weight: 600
+        }
+
+        .uppercase {
+            text-transform: uppercase
+        }
+
+        .leading-tight {
+            line-height: 1.25
+        }
+
+        .tracking-tight {
+            letter-spacing: -0.025em
+        }
+
+        .tracking-wider {
+            letter-spacing: 0.05em
+        }
+
+        .text-emerald-400 {
+            --tw-text-opacity: 1;
+            color: rgb(52 211 153 / var(--tw-text-opacity, 1))
+        }
+
+        .text-emerald-700 {
+            --tw-text-opacity: 1;
+            color: rgb(4 120 87 / var(--tw-text-opacity, 1))
+        }
+
+        .text-emerald-900 {
+            --tw-text-opacity: 1;
+            color: rgb(6 78 59 / var(--tw-text-opacity, 1))
+        }
+
+        .text-red-500 {
+            --tw-text-opacity: 1;
+            color: rgb(239 68 68 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-200 {
+            --tw-text-opacity: 1;
+            color: rgb(226 232 240 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-400 {
+            --tw-text-opacity: 1;
+            color: rgb(148 163 184 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-500 {
+            --tw-text-opacity: 1;
+            color: rgb(100 116 139 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-600 {
+            --tw-text-opacity: 1;
+            color: rgb(71 85 105 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-700 {
+            --tw-text-opacity: 1;
+            color: rgb(51 65 85 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-800 {
+            --tw-text-opacity: 1;
+            color: rgb(30 41 59 / var(--tw-text-opacity, 1))
+        }
+
+        .text-slate-900 {
+            --tw-text-opacity: 1;
+            color: rgb(15 23 42 / var(--tw-text-opacity, 1))
+        }
+
+        .text-white {
+            --tw-text-opacity: 1;
+            color: rgb(255 255 255 / var(--tw-text-opacity, 1))
+        }
+
+        .text-emerald-800 {
+            --tw-text-opacity: 1;
+            color: rgb(6 95 70 / var(--tw-text-opacity, 1))
+        }
+
+        .opacity-50 {
+            opacity: 0.5
+        }
+
+        .shadow-sm {
+            --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+            box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+        }
+
+        .transition-all {
+            transition-property: all;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms
+        }
+
+        .transition-colors {
+            transition-property: color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+            transition-property: color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+            transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+            transition-duration: 150ms
+        }
+
+        .duration-300 {
+            transition-duration: 300ms
+        }
+
+        .hover\:border-slate-400:hover {
+            --tw-border-opacity: 1;
+            border-color: rgb(148 163 184 / var(--tw-border-opacity, 1))
+        }
+
+        .hover\:bg-emerald-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(4 120 87 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-slate-200:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(226 232 240 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-slate-700:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(51 65 85 / var(--tw-bg-opacity, 1))
+        }
+
+        .hover\:bg-slate-50:hover {
+            --tw-bg-opacity: 1;
+            background-color: rgb(248 250 252 / var(--tw-bg-opacity, 1))
+        }
+
+        .focus\:outline-none:focus {
+            outline: 2px solid transparent;
+            outline-offset: 2px
+        }
+
+        .focus\:ring-1:focus {
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+        }
+
+        .focus\:ring-2:focus {
+            --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+            --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+            box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+        }
+
+        .focus\:ring-emerald-500:focus {
+            --tw-ring-opacity: 1;
+            --tw-ring-color: rgb(16 185 129 / var(--tw-ring-opacity, 1))
+        }
+
+        .active\:bg-slate-300:active {
+            --tw-bg-opacity: 1;
+            background-color: rgb(203 213 225 / var(--tw-bg-opacity, 1))
+        }
+
+        .active\:bg-slate-100:active {
+            --tw-bg-opacity: 1;
+            background-color: rgb(241 245 249 / var(--tw-bg-opacity, 1))
+        }
+
+        @media (min-width: 640px) {
+            .sm\:rounded-2xl {
+                border-radius: 1rem
+            }
+
+            .sm\:p-4 {
+                padding: 1rem
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-slate-100 min-h-screen flex items-center justify-center p-0 sm:p-4">
+
+    <div class="app-container bg-white sm:rounded-2xl flex flex-col relative border border-slate-200">
+
+        <!-- Header & Step Indicator -->
+        <header class="bg-slate-900 text-white px-4 py-3 shrink-0 flex items-center justify-between">
+            <div>
+                <h1 class="text-base font-semibold tracking-tight text-white leading-tight">Dallas Urbanists</h1>
+                <p class="text-xs text-slate-400" id="step-subtitle">Step 3: Outreach List</p>
+            </div>
+            <!-- Wizard Step Pills -->
+            <div class="flex items-center space-x-1.5" id="step-pills">
+                <span
+                    class="w-6 h-6 rounded-full bg-emerald-500 text-slate-900 font-bold text-xs flex items-center justify-center"
+                    id="pill-1">1</span>
+                <span class="w-1.5 h-0.5 bg-slate-700" id="line-1"></span>
+                <span
+                    class="w-6 h-6 rounded-full bg-emerald-500 text-slate-900 font-bold text-xs flex items-center justify-center"
+                    id="pill-2">2</span>
+                <span class="w-1.5 h-0.5 bg-slate-700" id="line-2"></span>
+                <span
+                    class="w-6 h-6 rounded-full bg-emerald-500 text-slate-900 font-bold text-xs flex items-center justify-center"
+                    id="pill-3">3</span>
+            </div>
+        </header>
+
+        <!-- Dynamic Content Body -->
+        <main class="flex-1 overflow-y-auto custom-scroll p-4 flex flex-col justify-between" id="main-content">
+
+            <section id="step-1" class="flex-1 flex flex-col justify-between space-y-4 min-h-0">
+                <div class="space-y-4">
+                    <!-- File Drop/Select Target -->
+                    <div class="border-2 border-dashed border-slate-300 hover:border-slate-400 rounded-xl p-5 text-center flex flex-col items-center justify-center bg-slate-50 transition-colors cursor-pointer"
+                        id="drop-zone" onclick="document.getElementById('csv-file-input').click()">
+                        <svg class="w-10 h-10 text-slate-400 mb-2" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
+                            </path>
+                        </svg>
+                        <span class="text-xs font-semibold text-slate-700" id="file-name-display">Select a CSV contact list from your phone or device to
+                            generate custom SMS links.</span>
+                        <span class="text-[10px] text-slate-400 mt-1" id="file-size-display"></span>
+                        <input type="file" id="csv-file-input" accept=".csv,text/csv" class="hidden">
+                    </div>
+                </div>
+
+                <!-- Step 1 Actions -->
+                <div class="pt-2">
+                    <button id="btn-step-1-next" onclick="goToStep(2)"
+                        class="w-full min-h-[48px] bg-emerald-600 text-white font-semibold rounded-xl text-sm transition-all flex items-center justify-center space-x-2 shadow-sm hover:bg-emerald-700">
+                        <span>Continue to Column Mapping</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <section id="step-2" class="flex-1 flex flex-col justify-between space-y-4 hidden">
+                <div class="space-y-3">
+                    <div class="bg-slate-100 rounded-lg p-2.5 text-xs text-slate-600 flex justify-between items-center">
+                        <span class="font-medium">Detected Columns:</span>
+                        <span id="detected-column-count" class="font-bold text-slate-800">7</span>
+                    </div>
+
+                    <!-- Mapping Selectors -->
+                    <div class="space-y-3">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Name Column(s)</label>
+                            <div class="grid grid-cols-2 gap-2" id="name-mapping-container">
+                                <select id="map-first-name"
+                                    class="w-full h-11 bg-slate-50 border border-slate-300 rounded-lg px-2 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <option value="">-- First / Full Name --</option>
+                                    <option value="0">Name:</option>
+                                    <option value="1">Email:</option>
+                                    <option value="2">Number:</option>
+                                    <option value="3">Neighborhood:</option>
+                                    <option value="4">Affilitations:</option>
+                                    <option value="5">Date:</option>
+                                    <option value="6"></option>
+                                </select>
+                                <select id="map-last-name"
+                                    class="w-full h-11 bg-slate-50 border border-slate-300 rounded-lg px-2 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                    <option value="">-- Last Name (Optional) --</option>
+                                    <option value="0">Name:</option>
+                                    <option value="1">Email:</option>
+                                    <option value="2">Number:</option>
+                                    <option value="3">Neighborhood:</option>
+                                    <option value="4">Affilitations:</option>
+                                    <option value="5">Date:</option>
+                                    <option value="6"></option>
+                                </select>
+                            </div>
+                            <p class="text-[10px] text-slate-400 mt-1">Select single Full Name or split First/Last
+                                columns.</p>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Phone Number Column <span
+                                    class="text-red-500">*</span></label>
+                            <select id="map-phone"
+                                class="w-full h-11 bg-slate-50 border border-slate-300 rounded-lg px-2 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="">-- Select Phone Column --</option>
+                                <option value="0">Name:</option>
+                                <option value="1">Email:</option>
+                                <option value="2">Number:</option>
+                                <option value="3">Neighborhood:</option>
+                                <option value="4">Affilitations:</option>
+                                <option value="5">Date:</option>
+                                <option value="6"></option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 mb-1">Email Column
+                                (Optional)</label>
+                            <select id="map-email"
+                                class="w-full h-11 bg-slate-50 border border-slate-300 rounded-lg px-2 text-xs font-medium focus:ring-2 focus:ring-emerald-500 focus:outline-none">
+                                <option value="">-- Select Email Column --</option>
+                                <option value="0">Name:</option>
+                                <option value="1">Email:</option>
+                                <option value="2">Number:</option>
+                                <option value="3">Neighborhood:</option>
+                                <option value="4">Affilitations:</option>
+                                <option value="5">Date:</option>
+                                <option value="6"></option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Step 2 Actions -->
+                <div class="grid grid-cols-3 gap-2 pt-2">
+                    <button type="button" onclick="goToStep(1)"
+                        class="min-h-[48px] bg-slate-100 hover:bg-slate-200 text-slate-700 font-medium text-xs rounded-xl transition-colors">
+                        Back
+                    </button>
+                    <button type="button" onclick="processAndNormalizeData()"
+                        class="col-span-2 min-h-[48px] bg-emerald-600 text-white font-semibold rounded-xl text-xs hover:bg-emerald-700 transition-colors flex items-center justify-center space-x-1 shadow-sm">
+                        <span>Process Contacts</span>
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </div>
+            </section>
+
+            <section id="step-3" class="flex-1 flex flex-col justify-between space-y-3 hidden">
+                <!-- Summary / Counter bar -->
+                <div
+                    class="bg-slate-900 text-white p-3 rounded-xl flex items-center justify-between shrink-0 shadow-sm">
+                    <div>
+                        <div class="text-[10px] text-slate-400 uppercase tracking-wider font-bold">Progress</div>
+                        <div class="text-sm font-bold text-emerald-400" id="progress-text">1 / 67 Contacted</div>
+                    </div>
+                    <div class="w-1/3 bg-slate-800 h-2 rounded-full overflow-hidden">
+                        <div id="progress-bar" class="bg-emerald-400 h-full w-0 transition-all duration-300"
+                            style="width: 1.49254%;"></div>
+                    </div>
+                </div>
+
+                <!-- Search and Filter Bar -->
+                <div class="flex items-center space-x-2 shrink-0">
+                    <div class="relative flex-1">
+                        <input type="text" id="contact-search" oninput="filterContacts()"
+                            placeholder="Search name or phone..."
+                            class="w-full h-9 bg-slate-100 border border-slate-200 rounded-lg pl-8 pr-3 text-xs focus:ring-1 focus:ring-emerald-500 focus:outline-none">
+                        <svg class="w-4 h-4 text-slate-400 absolute left-2.5 top-2.5" fill="none" stroke="currentColor"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                    </div>
+                    <button onclick="toggleFilterSent()" id="btn-filter-sent"
+                        class="h-9 px-2.5 bg-slate-100 border border-slate-200 text-slate-600 rounded-lg text-[11px] font-medium whitespace-nowrap">
+                        All
+                    </button>
+                </div>
+
+                <!-- Contacts Table Container -->
+                <div
+                    class="flex-1 overflow-y-auto custom-scroll border border-slate-200 rounded-xl bg-white divide-y divide-slate-100">
+                    <div id="contacts-list" class="divide-y divide-slate-100"></div>
+                </div>
+
+                <!-- Step 3 Footer Controls -->
+                <div class="pt-1 shrink-0 flex items-center space-x-2">
+                    <button type="button" onclick="goToStep(2)"
+                        class="min-h-[44px] px-3 bg-slate-100 text-slate-700 font-medium text-xs rounded-xl border border-slate-200">
+                        Back
+                    </button>
+                    <button type="button" onclick="resetProgress()"
+                        class="flex-1 min-h-[44px] bg-slate-800 text-slate-200 font-medium text-xs rounded-xl border border-slate-700 hover:bg-slate-700 transition-colors">
+                        Reset Checkmarks
+                    </button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // Core State Variables
+        let rawCsvHeader = [];
+        let rawCsvRows = [];
+        let contactMap = new Map(); // Key: normalized phone, Value: { first_name, last_name, email, phone, rawPhone, sent: bool }
+        let currentStep = 1;
+        let showUnsentOnly = false;
+
+        // Custom Message Template
+        const MESSAGE_TEMPLATE = `Hi {first_name}! Tonight the Uptown/Oak Lawn Hyperlocal Conversation will meet at Mike's Chicken at 6:30pm, *not Whole Foods*. Call/text this number for help finding us. RSVP: https://www.meetup.com/dallasurbanists/events/316375035/`;
+
+        // File Input Event Listener
+        document.getElementById('csv-file-input').addEventListener('change', handleFileSelect);
+
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            document.getElementById('file-name-display').textContent = file.name;
+            document.getElementById('file-size-display').textContent = `${(file.size / 1024).toFixed(1)} KB`;
+
+            const reader = new FileReader();
+            reader.onload = function (evt) {
+                parseCSVContent(evt.target.result);
+            };
+            reader.readAsText(file);
+        }
+
+        // Custom Robust CSV Parser (Handles quotes, commas, newlines)
+        function parseCSVContent(text) {
+            const lines = [];
+            let row = [];
+            let inQuotes = false;
+            let currentToken = '';
+
+            for (let i = 0; i < text.length; i++) {
+                const char = text[i];
+                const nextChar = text[i + 1];
+
+                if (char === '"') {
+                    if (inQuotes && nextChar === '"') {
+                        currentToken += '"';
+                        i++; // skip escaped quote
+                    } else {
+                        inQuotes = !inQuotes;
+                    }
+                } else if (char === ',' && !inQuotes) {
+                    row.push(currentToken.trim());
+                    currentToken = '';
+                } else if ((char === '\r' || char === '\n') && !inQuotes) {
+                    if (char === '\r' && nextChar === '\n') {
+                        i++;
+                    }
+                    row.push(currentToken.trim());
+                    if (row.some(cell => cell !== '')) {
+                        lines.push(row);
+                    }
+                    row = [];
+                    currentToken = '';
+                } else {
+                    currentToken += char;
+                }
+            }
+            if (currentToken || row.length > 0) {
+                row.push(currentToken.trim());
+                if (row.some(cell => cell !== '')) {
+                    lines.push(row);
+                }
+            }
+
+            if (lines.length < 2) {
+                alert('The selected CSV file appears to be empty or missing headers.');
+                return;
+            }
+
+            rawCsvHeader = lines[0];
+            rawCsvRows = lines.slice(1);
+
+            // Enable next button
+            const nextBtn = document.getElementById('btn-step-1-next');
+            nextBtn.disabled = false;
+            nextBtn.classList.remove('opacity-50', 'cursor-not-allowed');
+            nextBtn.classList.add('hover:bg-emerald-700');
+
+            populateColumnDropdowns();
+        }
+
+        function goToStep(step) {
+            console.log("Go to step " + step);
+            currentStep = step;
+
+            // Hide all steps
+            document.getElementById('step-1').classList.add('hidden');
+            document.getElementById('step-2').classList.add('hidden');
+            document.getElementById('step-3').classList.add('hidden');
+
+            // Show target step
+            document.getElementById(`step-${step}`).classList.remove('hidden');
+
+            // Update Header UI & Pills
+            const subtitles = {
+                1: 'Step 1: Upload CSV Data',
+                2: 'Step 2: Map Columns',
+                3: 'Step 3: Outreach List'
+            };
+            document.getElementById('step-subtitle').textContent = subtitles[step];
+
+            for (let i = 1; i <= 3; i++) {
+                const pill = document.getElementById(`pill-${i}`);
+                if (i <= step) {
+                    pill.className = "w-6 h-6 rounded-full bg-emerald-500 text-slate-900 font-bold text-xs flex items-center justify-center";
+                } else {
+                    pill.className = "w-6 h-6 rounded-full bg-slate-800 text-slate-400 font-bold text-xs flex items-center justify-center";
+                }
+            }
+        }
+
+        function populateColumnDropdowns() {
+            document.getElementById('detected-column-count').textContent = rawCsvHeader.length;
+
+            const fnSelect = document.getElementById('map-first-name');
+            const lnSelect = document.getElementById('map-last-name');
+            const phoneSelect = document.getElementById('map-phone');
+            const emailSelect = document.getElementById('map-email');
+
+            // Reset options
+            fnSelect.innerHTML = '<option value="">-- First / Full Name --</option>';
+            lnSelect.innerHTML = '<option value="">-- Last Name (Optional) --</option>';
+            phoneSelect.innerHTML = '<option value="">-- Select Phone Column --</option>';
+            emailSelect.innerHTML = '<option value="">-- Select Email Column --</option>';
+
+            rawCsvHeader.forEach((colName, idx) => {
+                const opt = `<option value="${idx}">${colName}</option>`;
+                fnSelect.innerHTML += opt;
+                lnSelect.innerHTML += opt;
+                phoneSelect.innerHTML += opt;
+                emailSelect.innerHTML += opt;
+
+                // Smart Auto-detection based on header names
+                const lower = colName.toLowerCase();
+                if (lower.includes('phone') || lower.includes('mobile') || lower.includes('cell')) {
+                    phoneSelect.value = idx;
+                } else if (lower.includes('first') || lower.includes('full name') || lower.includes('name')) {
+                    if (!fnSelect.value) fnSelect.value = idx;
+                } else if (lower.includes('last')) {
+                    lnSelect.value = idx;
+                } else if (lower.includes('email') || lower.includes('mail')) {
+                    emailSelect.value = idx;
+                }
+            });
+        }
+
+        function processAndNormalizeData() {
+            console.log('processAndNormalizeData');
+            const fnIdx = document.getElementById('map-first-name').value;
+            const lnIdx = document.getElementById('map-last-name').value;
+            const phoneIdx = document.getElementById('map-phone').value;
+            const emailIdx = document.getElementById('map-email').value;
+
+            if (phoneIdx === "") {
+                alert("Please select the column for Phone Number.");
+                return;
+            }
+
+            contactMap.clear(); // Initialize fresh Map() with unique phone numbers
+
+            rawCsvRows.forEach(row => {
+                const rawPhone = row[phoneIdx] || '';
+                const normalizedPhone = normalizePhone(rawPhone);
+
+                if (!normalizedPhone) return; // Skip invalid phone entries
+
+                // Normalize name
+                let firstName = '';
+                let lastName = '';
+
+                if (fnIdx !== "") {
+                    const rawFn = row[fnIdx] || '';
+                    if (lnIdx !== "" && lnIdx !== fnIdx) {
+                        firstName = rawFn.trim();
+                        lastName = (row[lnIdx] || '').trim();
+                    } else {
+                        // Split full name if combined
+                        const nameParts = rawFn.trim().split(/\s+/);
+                        firstName = nameParts[0] || '';
+                        lastName = nameParts.slice(1).join(' ') || '';
+                    }
+                }
+
+                // Default fallback if name is empty
+                if (!firstName) firstName = 'Friend';
+
+                // Normalize email
+                const rawEmail = emailIdx !== "" ? (row[emailIdx] || '') : '';
+                const normalizedEmail = normalizeEmail(rawEmail);
+
+                // Populate Map with unique phone as key
+                if (!contactMap.has(normalizedPhone)) {
+                    contactMap.set(normalizedPhone, {
+                        phone: normalizedPhone,
+                        rawPhone: rawPhone,
+                        first_name: firstName,
+                        last_name: lastName,
+                        email: normalizedEmail,
+                        sent: false
+                    });
+                }
+            });
+
+            if (contactMap.size === 0) {
+                alert("No valid phone numbers found in the selected column.");
+                return;
+            }
+
+            renderContactsList();
+            goToStep(3);
+        }
+
+        function normalizePhone(phoneStr) {
+            if (!phoneStr) return '';
+            // Strip non-digits
+            const digits = phoneStr.replace(/\D/g, '');
+            if (digits.length < 10) return ''; // Invalid phone number length
+            // Format standard 10 digit US number or keep international leading digits
+            if (digits.length === 10) {
+                return `+1${digits}`;
+            } else if (digits.length === 11 && digits.startsWith('1')) {
+                return `+${digits}`;
+            }
+            return `+${digits}`;
+        }
+
+        function normalizeEmail(emailStr) {
+            if (!emailStr) return '';
+            return emailStr.trim().toLowerCase();
+        }
+
+        function renderContactsList() {
+            const listContainer = document.getElementById('contacts-list');
+            listContainer.innerHTML = '';
+
+            let totalCount = contactMap.size;
+            let sentCount = 0;
+
+            const searchQuery = (document.getElementById('contact-search').value || '').toLowerCase();
+
+            contactMap.forEach((contact, phoneKey) => {
+                if (contact.sent) sentCount++;
+
+                // Apply Filters
+                if (showUnsentOnly && contact.sent) return;
+
+                const fullName = `${contact.first_name} ${contact.last_name}`.trim();
+                if (searchQuery) {
+                    const matchName = fullName.toLowerCase().includes(searchQuery);
+                    const matchPhone = contact.phone.includes(searchQuery);
+                    if (!matchName && !matchPhone) return;
+                }
+
+                // Create custom encoded SMS Message
+                const messageText = MESSAGE_TEMPLATE.replace('{first_name}', contact.first_name);
+                const smsUri = `sms:${contact.phone}?body=${encodeURIComponent(messageText)}`;
+
+                const rowEl = document.createElement('div');
+                rowEl.className = `p-3 flex items-center justify-between transition-colors ${contact.sent ? 'bg-emerald-50/60' : 'hover:bg-slate-50'}`;
+
+                rowEl.innerHTML = `
+                    <div class="flex-1 min-w-0 pr-2">
+                        <div class="flex items-center space-x-1.5">
+                            <span class="text-xs font-bold text-slate-800 truncate">${escapeHtml(fullName)}</span>
+                            ${contact.sent ? `<span class="inline-flex items-center px-1.5 py-0.5 rounded text-[9px] font-medium bg-emerald-100 text-emerald-800">Sent</span>` : ''}
+                        </div>
+                        <div class="text-[11px] text-slate-500 font-mono mt-0.5">${escapeHtml(contact.phone)}</div>
+                        ${contact.email ? `<div class="text-[10px] text-slate-400 truncate">${escapeHtml(contact.email)}</div>` : ''}
+                    </div>
+
+                    <!-- Action SMS Hyperlink Button -->
+                    <a href="${smsUri}" 
+                       onclick="markAsSent('${phoneKey}')" 
+                       class="shrink-0 min-h-[40px] px-3 py-1.5 rounded-lg border font-medium text-xs flex items-center space-x-1.5 transition-all ${contact.sent
+                        ? 'bg-emerald-600 text-white border-emerald-600 shadow-sm'
+                        : 'bg-white border-slate-300 text-slate-700 active:bg-slate-100'
+                    }">
+                       ${contact.sent
+                        ? `<svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
+                              <span>Sent</span>`
+                        : `<svg class="w-3.5 h-3.5 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                              <span>Text</span>`
+                    }
+                    </a>
+                `;
+
+                listContainer.appendChild(rowEl);
+            });
+
+            // Update Progress Bar & Text
+            document.getElementById('progress-text').textContent = `${sentCount} / ${totalCount} Contacted`;
+            const percentage = totalCount > 0 ? (sentCount / totalCount) * 100 : 0;
+            document.getElementById('progress-bar').style.width = `${percentage}%`;
+        }
+
+        function markAsSent(phoneKey) {
+            if (contactMap.has(phoneKey)) {
+                const record = contactMap.get(phoneKey);
+                record.sent = true;
+                contactMap.set(phoneKey, record);
+
+                // Re-render to update checkmarks and progress
+                setTimeout(() => {
+                    renderContactsList();
+                }, 300);
+            }
+        }
+
+        function filterContacts() {
+            renderContactsList();
+        }
+
+        function toggleFilterSent() {
+            showUnsentOnly = !showUnsentOnly;
+            const btn = document.getElementById('btn-filter-sent');
+            btn.textContent = showUnsentOnly ? 'Unsent' : 'All';
+            btn.className = showUnsentOnly
+                ? 'h-9 px-2.5 bg-emerald-100 border border-emerald-300 text-emerald-800 rounded-lg text-[11px] font-bold whitespace-nowrap'
+                : 'h-9 px-2.5 bg-slate-100 border border-slate-200 text-slate-600 rounded-lg text-[11px] font-medium whitespace-nowrap';
+            renderContactsList();
+        }
+
+        function resetProgress() {
+            if (confirm("Reset all sent checkmarks back to uncontacted status?")) {
+                contactMap.forEach((val, key) => {
+                    val.sent = false;
+                    contactMap.set(key, val);
+                });
+                renderContactsList();
+            }
+        }
+
+        function escapeHtml(str) {
+            if (!str) return '';
+            return str.replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+
+</body>
+
+</html>
