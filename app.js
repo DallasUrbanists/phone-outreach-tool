@@ -666,6 +666,8 @@ function renderContactsList() {
             if (!matchName && !matchPhone) return;
         }
 
+        const showPhoneAsName = fullName === 'Neighbor';
+
         visibleCount++;
         const isSelected = selectedContacts.has(phoneKey);
         if (isSelected) selectedVisibleCount++;
@@ -693,10 +695,10 @@ function renderContactsList() {
                         </div>
                         <div class="flex-grow-1 min-w-0 pe-2 text-truncate">
                             <div class="d-flex align-items-center gap-2">
-                                <span class="fw-bold text-dark small text-truncate contact-name">${escapeHtml(fullName)}</span>
+                                <span class="fw-bold text-dark small text-truncate contact-name">${!showPhoneAsName ? escapeHtml(fullName) : escapeHtml(contact.phone)}</span>
                                 ${contact.sent ? `<span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.65rem;">Sent</span>` : ''}
                             </div>
-                            <div class="text-secondary font-monospace small" style="font-size: 0.75rem;">${escapeHtml(contact.phone)}</div>
+                            ${!showPhoneAsName ? `<div class="text-secondary font-monospace small" style="font-size: 0.75rem;">${escapeHtml(contact.phone)}</div>` : ``}
                             ${contact.email && contact.email !== fullName ? `<div class="text-muted small text-truncate" style="font-size: 0.7rem;">${escapeHtml(contact.email)}</div>` : ''}
                         </div>
                         <a href="${smsUri}" 
