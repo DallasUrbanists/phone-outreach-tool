@@ -1,242 +1,234 @@
 <!DOCTYPE html>
-<!-- saved from url=(0126)file:///C:/Users/thehe/AppData/Local/Temp/MicrosoftEdgeDownloads/28969410-8b76-4d8b-b995-d57a90bf8271/sms_outreach_wizard.html -->
 <html lang="en">
 
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>SMS Outreach Wizard</title>
-    <link rel="stylesheet" href="./styles/reset.css" />
-    <link rel="stylesheet" href="./styles/app.css" />
+
+    <!-- Bootstrap 5 CSS & Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- Custom App Styles (Layout & Gesture Overrides) -->
+    <link rel="stylesheet" href="./styles/app.css">
 </head>
 
-<body>
+<body class="bg-body-secondary">
 
-    <div class="app-container">
+    <div class="app-container card shadow border-0 mx-auto">
 
         <!-- Header & Step Indicator -->
-        <header class="app-header">
+        <header class="card-header bg-dark text-white p-3 d-flex align-items-center justify-content-between flex-shrink-0 border-0 flex-wrap">
             <div>
-                <h1 class="app-header-title">Dallas Urbanists</h1>
-                <p class="app-header-subtitle" id="step-subtitle">Step 1: Upload CSV Data</p>
+                <h1 class="h6 fw-bold mb-0 text-white">Phone Outreach Tool</h1>
+                <small class="text-secondary" id="step-subtitle">Step 1: Upload CSV Data</small>
             </div>
             <!-- Wizard Step Pills (4 Steps) -->
-            <div class="wizard-steps" id="step-pills">
-                <span class="step-pill step-pill--active" id="pill-1">1</span>
-                <span class="step-connector" id="line-1"></span>
-                <span class="step-pill step-pill--inactive" id="pill-2">2</span>
-                <span class="step-connector" id="line-2"></span>
-                <span class="step-pill step-pill--inactive" id="pill-3">3</span>
-                <span class="step-connector" id="line-3"></span>
-                <span class="step-pill step-pill--inactive" id="pill-4">4</span>
+            <div class="d-flex align-items-center gap-1" id="step-pills">
+                <span class="badge rounded-pill bg-success text-white step-pill" id="pill-1">1</span>
+                <span class="step-connector bg-secondary" id="line-1"></span>
+                <span class="badge rounded-pill bg-secondary text-white-50 step-pill" id="pill-2">2</span>
+                <span class="step-connector bg-secondary" id="line-2"></span>
+                <span class="badge rounded-pill bg-secondary text-white-50 step-pill" id="pill-3">3</span>
+                <span class="step-connector bg-secondary" id="line-3"></span>
+                <span class="badge rounded-pill bg-secondary text-white-50 step-pill" id="pill-4">4</span>
             </div>
         </header>
 
         <!-- Dynamic Content Body -->
-        <main class="app-main custom-scroll" id="main-content">
+        <main class="card-body p-3 overflow-y-auto flex-grow-1 custom-scroll d-flex flex-column justify-content-between" id="main-content">
 
             <!-- STEP 1: Upload CSV Data -->
-            <section id="step-1" class="step-panel">
-                <div class="step-panel-body">
+            <section id="step-1" class="step-panel flex-grow-1">
+                <div class="d-flex flex-column gap-3">
                     <!-- File Drop/Select Target -->
-                    <div class="dropzone" id="drop-zone" onclick="document.getElementById('csv-file-input').click()">
-                        <svg class="dropzone-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
-                                d="M9 13h6m-3-3v6m5 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z">
-                            </path>
-                        </svg>
-                        <span class="dropzone-label" id="file-name-display">Select a CSV contact list from your phone or device to
-                            generate custom SMS links.</span>
-                        <span class="dropzone-subtext" id="file-size-display"></span>
-                        <input type="file" id="csv-file-input" accept=".csv,text/csv" class="file-input-hidden">
+                    <div class="card border-2 border-dashed bg-light text-center p-4 rounded-3 cursor-pointer dropzone" id="drop-zone" onclick="document.getElementById('csv-file-input').click()">
+                        <i class="bi bi-cloud-arrow-up text-secondary display-5 mb-2"></i>
+                        <span class="fw-semibold text-secondary small" id="file-name-display">Select a CSV contact list from your phone or device to generate custom SMS links.</span>
+                        <span class="text-muted small mt-1" id="file-size-display"></span>
+                        <input type="file" id="csv-file-input" accept=".csv,text/csv" class="d-none">
                     </div>
                 </div>
 
                 <!-- Step 1 Actions (Only visible when file selected) -->
-                <div class="step-panel-footer">
-                    <button id="btn-step-1-next" onclick="goToStep(2)" class="btn btn-primary btn-full hidden">
+                <div class="pt-3">
+                    <button id="btn-step-1-next" onclick="goToStep(2)" class="btn btn-success btn-lg w-100 d-none align-items-center justify-content-center gap-2">
                         <span>Continue to Column Mapping</span>
-                        <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                        </svg>
+                        <i class="bi bi-arrow-right"></i>
                     </button>
                 </div>
             </section>
 
             <!-- STEP 2: Map Columns -->
-            <section id="step-2" class="step-panel hidden">
-                <div class="step-panel-body">
+            <section id="step-2" class="step-panel flex-grow-1 d-none">
+                <div class="d-flex flex-column gap-2">
                     <!-- First row is header row toggle -->
-                    <div class="form-checkbox-row">
-                        <label class="form-checkbox-label">
-                            <input type="checkbox" id="header-row-checkbox" class="form-checkbox" onchange="handleHeaderRowToggle()">
-                            <span>First row is header row</span>
+                    <div class="form-check form-switch bg-light border rounded-3 p-2 px-3 d-flex align-items-center justify-content-between m-0">
+                        <label class="form-check-label fw-semibold small text-dark mb-0 cursor-pointer" for="header-row-checkbox">
+                            First row is header row
                         </label>
+                        <input type="checkbox" id="header-row-checkbox" class="form-check-input ms-0 mt-0" onchange="handleHeaderRowToggle()">
                     </div>
 
-                    <div class="info-banner">
-                        <span class="info-banner-label">Detected Columns:</span>
-                        <span id="detected-column-count" class="info-banner-value">0</span>
+                    <div class="alert alert-secondary py-2 px-3 d-flex justify-content-between align-items-center rounded-3 mb-1">
+                        <span class="small fw-semibold text-secondary">Detected Columns:</span>
+                        <span id="detected-column-count" class="badge bg-dark">0</span>
                     </div>
 
                     <!-- Mapping Selectors -->
-                    <div class="form-group">
-                        <label class="form-label">Name Column(s)</label>
-                        <div class="form-grid-2" id="name-mapping-container">
-                            <select id="map-first-name" class="form-select" onchange="validateStep2()">
-                                <option value="">-- First / Full Name --</option>
-                            </select>
-                            <select id="map-last-name" class="form-select" onchange="validateStep2()">
-                                <option value="">-- Last Name (Optional) --</option>
-                            </select>
+                    <div>
+                        <label class="form-label fw-semibold small text-secondary mb-1">Name Column(s)</label>
+                        <div class="row g-2" id="name-mapping-container">
+                            <div class="col-6">
+                                <select id="map-first-name" class="form-select form-select-sm" onchange="validateStep2()">
+                                    <option value="">-- First / Full Name --</option>
+                                </select>
+                            </div>
+                            <div class="col-6">
+                                <select id="map-last-name" class="form-select form-select-sm" onchange="validateStep2()">
+                                    <option value="">-- Last Name (Optional) --</option>
+                                </select>
+                            </div>
                         </div>
-                        <p class="form-hint">Select single Full Name or split First/Last columns.</p>
+                        <div class="form-text small text-muted" style="font-size: 0.7rem;">Select single Full Name or split First/Last columns.</div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Phone Number Column <span class="form-required">*</span></label>
-                        <select id="map-phone" class="form-select" onchange="validateStep2()">
+                    <div>
+                        <label class="form-label fw-semibold small text-secondary mb-1">Phone Number Column <span class="text-danger">*</span></label>
+                        <select id="map-phone" class="form-select form-select-sm" onchange="validateStep2()">
                             <option value="">-- Select Phone Column --</option>
                         </select>
                     </div>
 
-                    <div class="form-group">
-                        <label class="form-label">Email Column (Optional)</label>
-                        <select id="map-email" class="form-select" onchange="validateStep2()">
+                    <div>
+                        <label class="form-label fw-semibold small text-secondary mb-1">Email Column (Optional)</label>
+                        <select id="map-email" class="form-select form-select-sm" onchange="validateStep2()">
                             <option value="">-- Select Email Column --</option>
                         </select>
                     </div>
                 </div>
 
                 <!-- Step 2 Actions -->
-                <div class="step-panel-footer">
-                    <div class="action-grid-split">
-                        <button type="button" onclick="goToStep(1)" class="btn btn-secondary btn-full">
-                            Back
-                        </button>
-                        <button type="button" id="btn-process-contacts" onclick="processAndNormalizeData()" class="btn btn-primary btn-full" disabled>
-                            <span>Process Contacts</span>
-                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
+                <div class="pt-3">
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <button type="button" onclick="goToStep(1)" class="btn btn-outline-secondary w-100">
+                                Back
+                            </button>
+                        </div>
+                        <div class="col-8">
+                            <button type="button" id="btn-process-contacts" onclick="processAndNormalizeData()" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2" disabled>
+                                <span>Process Contacts</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- STEP 3: Message Template -->
-            <section id="step-3" class="step-panel hidden">
-                <div class="step-panel-body">
-                    <div class="form-group">
-                        <label class="form-label" for="message-template-input">Message Template</label>
-                        <textarea id="message-template-input" class="form-textarea" rows="4"
+            <section id="step-3" class="step-panel flex-grow-1 d-none">
+                <div class="d-flex flex-column gap-2">
+                    <div>
+                        <label class="form-label fw-semibold small text-secondary mb-1" for="message-template-input">Message Template</label>
+                        <textarea id="message-template-input" class="form-control" rows="4"
                             placeholder="Write your SMS message..." oninput="updateTemplatePreview()"></textarea>
 
                         <!-- Variable Insert Pills -->
-                        <div class="template-pills-row">
-                            <span class="template-pills-label">Insert Variable Tag</span>
-                            <div class="template-pills-group">
-                                <button type="button" class="tag-pill" onclick="insertTemplateVariable('{first_name}')">{first_name}</button>
-                                <button type="button" class="tag-pill" onclick="insertTemplateVariable('{last_name}')">{last_name}</button>
-                                <button type="button" class="tag-pill" onclick="insertTemplateVariable('{full_name}')">{full_name}</button>
-                                <button type="button" class="tag-pill" onclick="insertTemplateVariable('{email}')">{email}</button>
+                        <div class="mt-2">
+                            <div class="text-uppercase small fw-bold text-muted mb-1" style="font-size: 0.7rem; letter-spacing: 0.05em;">Insert Variable Tag</div>
+                            <div class="d-flex flex-wrap gap-1">
+                                <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 font-monospace" style="font-size: 0.75rem;" onclick="insertTemplateVariable('{first_name}')">{first_name}</button>
+                                <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 font-monospace" style="font-size: 0.75rem;" onclick="insertTemplateVariable('{last_name}')">{last_name}</button>
+                                <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 font-monospace" style="font-size: 0.75rem;" onclick="insertTemplateVariable('{full_name}')">{full_name}</button>
+                                <button type="button" class="btn btn-sm btn-outline-success rounded-pill px-2 py-0 font-monospace" style="font-size: 0.75rem;" onclick="insertTemplateVariable('{email}')">{email}</button>
                             </div>
                         </div>
 
                         <!-- Live Preview Card -->
-                        <div class="template-preview-card">
-                            <div class="template-preview-header">Live Preview (First Contact)</div>
-                            <div class="template-preview-text" id="template-preview-text"></div>
+                        <div class="card bg-light border rounded-3 p-3 mt-3">
+                            <div class="text-uppercase small fw-bold text-muted mb-1" style="font-size: 0.7rem; letter-spacing: 0.05em;">Live Preview (First Contact)</div>
+                            <div class="small text-dark text-break" id="template-preview-text" style="white-space: pre-wrap;"></div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Step 3 Actions -->
-                <div class="step-panel-footer">
-                    <div class="action-grid-split">
-                        <button type="button" onclick="goToStep(2)" class="btn btn-secondary btn-full">
-                            Back
-                        </button>
-                        <button type="button" onclick="goToStep(4)" class="btn btn-primary btn-full">
-                            <span>Continue to Outreach List</span>
-                            <svg class="btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                    d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
-                            </svg>
-                        </button>
+                <div class="pt-3">
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <button type="button" onclick="goToStep(2)" class="btn btn-outline-secondary w-100">
+                                Back
+                            </button>
+                        </div>
+                        <div class="col-8">
+                            <button type="button" onclick="goToStep(4)" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2">
+                                <span>Continue to Outreach List</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- STEP 4: Outreach List (Swipe, Select, Copy) -->
-            <section id="step-4" class="step-panel hidden">
+            <section id="step-4" class="step-panel flex-grow-1 d-none" style="min-height: 0;">
                 <!-- Summary / Counter bar -->
-                <div class="progress-card">
-                    <div>
-                        <div class="progress-label">Progress</div>
-                        <div class="progress-value" id="progress-text">0 / 0 Contacted</div>
+                <div class="card bg-dark text-white p-3 rounded-3 mb-2 shadow-sm flex-shrink-0 border-0">
+                    <div class="d-flex justify-content-between align-items-center mb-1">
+                        <span class="text-uppercase small fw-bold text-secondary" style="font-size: 0.7rem; letter-spacing: 0.05em;">Progress</span>
+                        <span class="fw-bold text-success small" id="progress-text">0 / 0 Contacted</span>
                     </div>
-                    <div class="progress-track">
-                        <div id="progress-bar" class="progress-fill" style="width: 0%;"></div>
+                    <div class="progress bg-secondary" style="height: 6px;" role="progressbar" aria-label="Outreach Progress">
+                        <div id="progress-bar" class="progress-bar bg-success" style="width: 0%;"></div>
                     </div>
                 </div>
 
                 <!-- Search and Filter Bar -->
-                <div class="toolbar">
+                <div class="d-flex align-items-center gap-2 mb-2 flex-shrink-0">
                     <!-- Toggle Select All Button -->
-                    <button type="button" id="btn-toggle-select-all" onclick="toggleSelectAllContacts()" class="icon-btn" title="Toggle Select All">
-                        <svg class="icon-btn-svg" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
-                        </svg>
+                    <button type="button" id="btn-toggle-select-all" onclick="toggleSelectAllContacts()" class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center" style="width: 34px; height: 34px;" title="Toggle Select All">
+                        <i class="bi bi-check2-square fs-6"></i>
                     </button>
 
-                    <div class="search-field">
+                    <div class="input-group input-group-sm flex-grow-1">
+                        <span class="input-group-text bg-light border-end-0 text-muted"><i class="bi bi-search"></i></span>
                         <input type="text" id="contact-search" oninput="filterContacts()"
                             placeholder="Search name or phone..."
-                            class="search-input">
-                        <svg class="search-icon" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-                        </svg>
+                            class="form-control border-start-0 bg-light ps-0">
                     </div>
 
                     <!-- Restore Ignored Button (Only visible when ignored > 0) -->
-                    <button type="button" id="btn-restore-ignored" onclick="restoreIgnoredContacts()" class="btn-restore-ignored hidden" title="Restore Ignored Contacts">
-                        <svg style="width: 14px; height: 14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
-                        </svg>
+                    <button type="button" id="btn-restore-ignored" onclick="restoreIgnoredContacts()" class="btn btn-sm btn-outline-danger d-none align-items-center gap-1" title="Restore Ignored Contacts">
+                        <i class="bi bi-arrow-counterclockwise"></i>
                         <span>Restore (<span id="ignored-count-display">0</span>)</span>
                     </button>
 
-                    <button type="button" onclick="toggleFilterSent()" id="btn-filter-sent" class="filter-btn">
+                    <button type="button" onclick="toggleFilterSent()" id="btn-filter-sent" class="btn btn-sm btn-outline-secondary">
                         All
                     </button>
                 </div>
 
                 <!-- Contacts Table Container -->
-                <div class="contacts-card custom-scroll">
-                    <div id="contacts-list" class="contacts-list"></div>
+                <div class="card border rounded-3 overflow-hidden flex-grow-1 d-flex flex-column mb-2 bg-white" style="min-height: 0;">
+                    <div class="overflow-y-auto custom-scroll flex-grow-1">
+                        <div id="contacts-list" class="list-group list-group-flush"></div>
+                    </div>
                 </div>
 
                 <!-- Step 4 Footer Controls -->
-                <div class="step-panel-footer">
-                    <div class="action-row">
-                        <button type="button" onclick="goToStep(3)" class="btn btn-secondary btn-sm">
+                <div class="pt-1 flex-shrink-0">
+                    <div class="d-flex align-items-center gap-2">
+                        <button type="button" onclick="goToStep(3)" class="btn btn-outline-secondary btn-sm">
                             Back
                         </button>
                         <!-- Copy Selected Button (Only visible when selected >= 1) -->
-                        <button type="button" id="btn-copy-selected" onclick="copySelectedEmails()" class="btn btn-accent btn-sm hidden">
-                            <svg style="width: 14px; height: 14px;" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path>
-                            </svg>
+                        <button type="button" id="btn-copy-selected" onclick="copySelectedEmails()" class="btn btn-primary btn-sm d-none align-items-center gap-1">
+                            <i class="bi bi-clipboard"></i>
                             <span>Copy Selected (<span id="selected-count-display">0</span>)</span>
                         </button>
-                        <button type="button" onclick="resetProgress()" class="btn btn-dark btn-sm flex-1">
+                        <button type="button" onclick="resetProgress()" class="btn btn-outline-dark btn-sm flex-grow-1">
                             Reset Checkmarks
                         </button>
                     </div>
@@ -245,9 +237,11 @@
         </main>
 
         <!-- Toast Notifications Container -->
-        <div id="toast-container" class="toast-container" aria-live="polite"></div>
+        <div id="toast-container" class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 1090;" aria-live="polite"></div>
     </div>
 
+    <!-- Bootstrap 5 Bundle JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./app.js"></script>
 
 </body>

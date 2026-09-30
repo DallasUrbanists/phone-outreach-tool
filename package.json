@@ -16,5 +16,9 @@
     "url": "https://github.com/DallasUrbanists/phone-outreach-tool/issues"
   },
   "homepage": "https://github.com/DallasUrbanists/phone-outreach-tool#readme",
-  "description": ""
+  "description": "",
+  "dependencies": {
+    "bootstrap": "^5.3.8",
+    "bootstrap-icons": "^1.13.1"
+  }
 }

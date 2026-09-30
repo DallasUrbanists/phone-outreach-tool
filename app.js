@@ -75,7 +75,7 @@ function parseCSVContent(text) {
     if (lines.length === 0) {
         alert('The selected CSV file appears to be empty.');
         const nextBtn = document.getElementById('btn-step-1-next');
-        nextBtn.classList.add('hidden');
+        nextBtn.classList.add('d-none');
         return;
     }
 
@@ -104,7 +104,7 @@ function parseCSVContent(text) {
 
     // Make Step 1 next button visible
     const nextBtn = document.getElementById('btn-step-1-next');
-    nextBtn.classList.remove('hidden');
+    nextBtn.classList.remove('d-none');
 }
 
 function handleHeaderRowToggle() {
@@ -120,7 +120,7 @@ function goToStep(step) {
     for (let i = 1; i <= 4; i++) {
         const stepEl = document.getElementById(`step-${i}`);
         if (stepEl) {
-            stepEl.classList.toggle('hidden', i !== step);
+            stepEl.classList.toggle('d-none', i !== step);
         }
     }
 
@@ -136,7 +136,11 @@ function goToStep(step) {
     for (let i = 1; i <= 4; i++) {
         const pill = document.getElementById(`pill-${i}`);
         if (pill) {
-            pill.className = `step-pill ${i <= step ? 'step-pill--active' : 'step-pill--inactive'}`;
+            if (i <= step) {
+                pill.className = 'badge rounded-pill bg-success text-white step-pill';
+            } else {
+                pill.className = 'badge rounded-pill bg-secondary text-white-50 step-pill';
+            }
         }
     }
 
@@ -429,7 +433,7 @@ function renderContactsList() {
 
         // Create wrapper for swipe interaction
         const wrapper = document.createElement('div');
-        wrapper.className = 'contact-row-wrapper';
+        wrapper.className = 'contact-row-wrapper list-group-item p-0 border-0 border-bottom';
         wrapper.dataset.phone = phoneKey;
 
         wrapper.innerHTML = `
@@ -439,27 +443,25 @@ function renderContactsList() {
                     <div class="swipe-bg swipe-bg--right">
                         <span>Toggle Sent &check;</span>
                     </div>
-                    <div class="contact-item ${contact.sent ? 'is-sent' : ''} ${isSelected ? 'is-selected' : ''}">
-                        <div class="contact-checkbox-wrap">
-                            <input type="checkbox" class="contact-checkbox" ${isSelected ? 'checked' : ''} 
+                    <div class="contact-item d-flex align-items-center justify-content-between p-2 px-3 bg-white ${contact.sent ? 'bg-success-subtle bg-opacity-25' : ''} ${isSelected ? 'bg-primary-subtle bg-opacity-25' : ''}">
+                        <div class="form-check me-2 mb-0 d-flex align-items-center">
+                            <input type="checkbox" class="form-check-input contact-checkbox mt-0" ${isSelected ? 'checked' : ''} 
                                    onchange="toggleContactSelection('${phoneKey}', event)">
                         </div>
-                        <div class="contact-details">
-                            <div class="contact-header">
-                                <span class="contact-name">${escapeHtml(fullName)}</span>
-                                ${contact.sent ? `<span class="contact-badge">Sent</span>` : ''}
+                        <div class="flex-grow-1 min-w-0 pe-2 text-truncate">
+                            <div class="d-flex align-items-center gap-2">
+                                <span class="fw-bold text-dark small text-truncate contact-name">${escapeHtml(fullName)}</span>
+                                ${contact.sent ? `<span class="badge bg-success-subtle text-success border border-success-subtle py-0 px-1" style="font-size: 0.65rem;">Sent</span>` : ''}
                             </div>
-                            <div class="contact-phone">${escapeHtml(contact.phone)}</div>
-                            ${contact.email ? `<div class="contact-email">${escapeHtml(contact.email)}</div>` : ''}
+                            <div class="text-secondary font-monospace small" style="font-size: 0.75rem;">${escapeHtml(contact.phone)}</div>
+                            ${contact.email ? `<div class="text-muted small text-truncate" style="font-size: 0.7rem;">${escapeHtml(contact.email)}</div>` : ''}
                         </div>
                         <a href="${smsUri}" 
                            onclick="markAsSent('${phoneKey}')" 
-                           class="sms-btn ${contact.sent ? 'is-sent' : ''}">
+                           class="btn btn-sm ${contact.sent ? 'btn-success text-white' : 'btn-outline-primary'} d-inline-flex align-items-center gap-1 flex-shrink-0">
                            ${contact.sent
-                ? `<svg class="sms-btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"></path></svg>
-                               <span>Sent</span>`
-                : `<svg class="sms-btn-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
-                               <span>Text</span>`
+                ? `<i class="bi bi-check-lg"></i><span>Sent</span>`
+                : `<i class="bi bi-chat-dots-fill"></i><span>Text</span>`
             }
                         </a>
                     </div>
@@ -479,20 +481,20 @@ function renderContactsList() {
     // Update Restore Ignored Button
     const restoreBtn = document.getElementById('btn-restore-ignored');
     document.getElementById('ignored-count-display').textContent = ignoredCount;
-    restoreBtn.classList.toggle('hidden', ignoredCount === 0);
+    restoreBtn.classList.toggle('d-none', ignoredCount === 0);
 
     // Update Copy Selected Button
     const copyBtn = document.getElementById('btn-copy-selected');
     const selectedCount = getSelectedValidContacts().length;
     document.getElementById('selected-count-display').textContent = selectedCount;
-    copyBtn.classList.toggle('hidden', selectedCount === 0);
+    copyBtn.classList.toggle('d-none', selectedCount === 0);
 
     // Update Select All Icon State
     const selectAllBtn = document.getElementById('btn-toggle-select-all');
     if (visibleCount > 0 && selectedVisibleCount === visibleCount) {
-        selectAllBtn.classList.add('is-active');
+        selectAllBtn.className = 'btn btn-sm btn-success text-white d-flex align-items-center justify-content-center';
     } else {
-        selectAllBtn.classList.remove('is-active');
+        selectAllBtn.className = 'btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center';
     }
 }
 
@@ -500,27 +502,26 @@ function renderContactsList() {
 function attachSwipeListeners(itemEl, phoneKey, fullName) {
     let startX = 0;
     let startY = 0;
-    let currentX = 0;
     let isSwiping = false;
     let isHorizontalSwipe = false;
 
     function onPointerDown(e) {
         // Don't initiate swipe if clicking checkbox, link or button
         if (e.target.closest('input, a, button')) return;
-        startX = e.clientX || (e.touches && e.touches[0].clientX);
-        startY = e.clientY || (e.touches && e.touches[0].clientY);
-        currentX = startX;
+        startX = e.clientX;
+        startY = e.clientY;
         isSwiping = true;
         isHorizontalSwipe = false;
         itemEl.style.transition = 'none';
+        try {
+            itemEl.setPointerCapture(e.pointerId);
+        } catch (_) {}
     }
 
     function onPointerMove(e) {
         if (!isSwiping) return;
-        const clientX = e.clientX || (e.touches && e.touches[0].clientX);
-        const clientY = e.clientY || (e.touches && e.touches[0].clientY);
-        const deltaX = clientX - startX;
-        const deltaY = clientY - startY;
+        const deltaX = e.clientX - startX;
+        const deltaY = e.clientY - startY;
 
         if (!isHorizontalSwipe) {
             if (Math.abs(deltaX) > 8 && Math.abs(deltaX) > Math.abs(deltaY)) {
@@ -533,23 +534,19 @@ function attachSwipeListeners(itemEl, phoneKey, fullName) {
 
         if (isHorizontalSwipe) {
             if (e.cancelable) e.preventDefault();
-            // Apply resistance to extreme dragging
             const clampedDeltaX = Math.max(-140, Math.min(140, deltaX));
             itemEl.style.transform = `translateX(${clampedDeltaX}px)`;
         }
     }
 
     function onPointerEnd(e) {
-        if (!isSwiping || !isHorizontalSwipe) {
-            isSwiping = false;
-            return;
-        }
+        if (!isSwiping) return;
+        const deltaX = e.clientX - startX;
         isSwiping = false;
 
-        const clientX = (e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientX : e.clientX) || currentX;
-        const deltaX = (clientX || startX) - startX;
-        const threshold = 70;
+        if (!isHorizontalSwipe) return;
 
+        const threshold = 70;
         itemEl.style.transition = 'transform 200ms ease';
 
         if (deltaX < -threshold) {
@@ -567,16 +564,10 @@ function attachSwipeListeners(itemEl, phoneKey, fullName) {
         }
     }
 
-    // Touch events
-    itemEl.addEventListener('touchstart', onPointerDown, { passive: true });
-    itemEl.addEventListener('touchmove', onPointerMove, { passive: false });
-    itemEl.addEventListener('touchend', onPointerEnd, { passive: true });
-    itemEl.addEventListener('touchcancel', onPointerEnd, { passive: true });
-
-    // Mouse / Pointer events for desktop testing
-    itemEl.addEventListener('mousedown', onPointerDown);
-    window.addEventListener('mousemove', onPointerMove);
-    window.addEventListener('mouseup', onPointerEnd);
+    itemEl.addEventListener('pointerdown', onPointerDown);
+    itemEl.addEventListener('pointermove', onPointerMove);
+    itemEl.addEventListener('pointerup', onPointerEnd);
+    itemEl.addEventListener('pointercancel', onPointerEnd);
 }
 
 function ignoreContact(phoneKey, fullName) {
@@ -708,21 +699,27 @@ function fallbackCopyText(text, count) {
 function showToast(message, actionLabel, actionCallback, duration = 4000) {
     const container = document.getElementById('toast-container');
     const toast = document.createElement('div');
-    toast.className = 'toast';
+    toast.className = 'toast align-items-center text-bg-dark border-0 shadow-lg show mb-2';
+    toast.setAttribute('role', 'alert');
+    toast.setAttribute('aria-live', 'assertive');
+    toast.setAttribute('aria-atomic', 'true');
 
     toast.innerHTML = `
-                <span class="toast-message">${escapeHtml(message)}</span>
-                ${actionLabel ? `<button type="button" class="toast-action">${escapeHtml(actionLabel)}</button>` : ''}
-                <button type="button" class="toast-dismiss" aria-label="Dismiss">&times;</button>
-            `;
+        <div class="d-flex align-items-center justify-content-between p-2">
+            <div class="toast-body py-1 px-2 small flex-grow-1 text-white">
+                ${escapeHtml(message)}
+                ${actionLabel ? `<button type="button" class="btn btn-sm btn-link text-warning p-0 ms-2 text-decoration-none fw-bold toast-action">${escapeHtml(actionLabel)}</button>` : ''}
+            </div>
+            <button type="button" class="btn-close btn-close-white me-2 m-auto toast-dismiss" aria-label="Close"></button>
+        </div>
+    `;
 
     let timeoutId = null;
 
     function dismissToast() {
         if (timeoutId) clearTimeout(timeoutId);
-        toast.style.opacity = '0';
-        toast.style.transform = 'translateY(8px)';
-        toast.style.transition = 'all 150ms ease';
+        toast.classList.remove('show');
+        toast.classList.add('fade');
         setTimeout(() => {
             if (toast.parentNode) {
                 toast.parentNode.removeChild(toast);
@@ -764,7 +761,11 @@ function toggleFilterSent() {
     showUnsentOnly = !showUnsentOnly;
     const btn = document.getElementById('btn-filter-sent');
     btn.textContent = showUnsentOnly ? 'Unsent' : 'All';
-    btn.className = `filter-btn ${showUnsentOnly ? 'is-active' : ''}`;
+    if (showUnsentOnly) {
+        btn.className = 'btn btn-sm btn-success';
+    } else {
+        btn.className = 'btn btn-sm btn-outline-secondary';
+    }
     renderContactsList();
 }
 
