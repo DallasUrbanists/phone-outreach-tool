@@ -155,7 +155,8 @@ function loadStateFromLocalStorage() {
         if (fileName) {
             document.getElementById('file-name-display').textContent = fileName;
             document.getElementById('file-size-display').textContent = fileSize;
-            document.getElementById('btn-step-1-next').classList.remove('d-none');
+            const step1Actions = document.getElementById('step-1-actions');
+            if (step1Actions) step1Actions.classList.remove('d-none');
         }
 
         document.getElementById('header-row-checkbox').checked = state.headerRowChecked ?? true;
@@ -224,8 +225,10 @@ function startOver() {
     updateExpandState();
 
     document.getElementById('csv-file-input').value = '';
-    document.getElementById('file-name-display').textContent = 'Select a CSV contact list from your phone or device to generate custom SMS links.';
+    document.getElementById('file-name-display').textContent = 'Select a CSV or Excel contact list from your phone or device to generate custom SMS links.';
     document.getElementById('file-size-display').textContent = '';
+    const step1Actions = document.getElementById('step-1-actions');
+    if (step1Actions) step1Actions.classList.add('d-none');
     const manualInputEl = document.getElementById('manual-contacts-input');
     if (manualInputEl) manualInputEl.value = '';
     const rowRadio = document.getElementById('mode-row-per-contact');
@@ -269,17 +272,49 @@ function processUploadedFile(file) {
     document.getElementById('file-name-display').textContent = fileName;
     document.getElementById('file-size-display').textContent = fileSize;
 
-    const reader = new FileReader();
-    reader.onload = function (evt) {
-        const content = evt.target.result || '';
-        const manualInputEl = document.getElementById('manual-contacts-input');
-        if (manualInputEl) {
-            manualInputEl.value = content;
-        }
-        updateStep1NextButton();
-        parseCSVContent(content);
-    };
-    reader.readAsText(file);
+    const isExcel = /\.(xlsx|xls)$/i.test(file.name);
+
+    if (isExcel) {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+            try {
+                if (typeof XLSX === 'undefined') {
+                    throw new Error('XLSX parser library not loaded');
+                }
+                const data = new Uint8Array(evt.target.result);
+                const workbook = XLSX.read(data, { type: 'array' });
+                const firstSheetName = workbook.SheetNames[0];
+                if (!firstSheetName) {
+                    throw new Error('Workbook contains no sheets');
+                }
+                const worksheet = workbook.Sheets[firstSheetName];
+                const csvContent = XLSX.utils.sheet_to_csv(worksheet);
+
+                const manualInputEl = document.getElementById('manual-contacts-input');
+                if (manualInputEl) {
+                    manualInputEl.value = csvContent;
+                }
+                updateStep1NextButton();
+                parseCSVContent(csvContent);
+            } catch (err) {
+                console.error('Error parsing Excel file:', err);
+                alert('Failed to parse Excel file. Please ensure it is a valid spreadsheet.');
+            }
+        };
+        reader.readAsArrayBuffer(file);
+    } else {
+        const reader = new FileReader();
+        reader.onload = function (evt) {
+            const content = evt.target.result || '';
+            const manualInputEl = document.getElementById('manual-contacts-input');
+            if (manualInputEl) {
+                manualInputEl.value = content;
+            }
+            updateStep1NextButton();
+            parseCSVContent(content);
+        };
+        reader.readAsText(file);
+    }
 }
 
 function handleManualInputPaste(e) {
@@ -334,14 +369,43 @@ function handleInputModeChange() {
 
 function updateStep1NextButton() {
     const text = (document.getElementById('manual-contacts-input')?.value || '').trim();
-    const nextBtn = document.getElementById('btn-step-1-next');
-    if (nextBtn) {
+    const step1Actions = document.getElementById('step-1-actions');
+    if (step1Actions) {
         if (text.length > 0 || fileName) {
-            nextBtn.classList.remove('d-none');
+            step1Actions.classList.remove('d-none');
         } else {
-            nextBtn.classList.add('d-none');
+            step1Actions.classList.add('d-none');
         }
     }
+    saveStateToLocalStorage();
+}
+
+function resetStep1Inputs() {
+    fileName = '';
+    fileSize = '';
+    const fileInput = document.getElementById('csv-file-input');
+    if (fileInput) fileInput.value = '';
+
+    const nameDisplay = document.getElementById('file-name-display');
+    if (nameDisplay) {
+        nameDisplay.textContent = 'Select a CSV or Excel contact list from your phone or device to generate custom SMS links.';
+    }
+
+    const sizeDisplay = document.getElementById('file-size-display');
+    if (sizeDisplay) sizeDisplay.textContent = '';
+
+    const manualInputEl = document.getElementById('manual-contacts-input');
+    if (manualInputEl) manualInputEl.value = '';
+
+    rawCsvLines = [];
+    rawCsvHeader = [];
+    rawCsvRows = [];
+
+    const rowRadio = document.getElementById('mode-row-per-contact');
+    if (rowRadio) rowRadio.checked = true;
+    handleInputModeChange();
+
+    updateStep1NextButton();
     saveStateToLocalStorage();
 }
 
@@ -510,7 +574,7 @@ function goToStep(step) {
 
     // Update Header UI & Pills
     const subtitles = {
-        1: 'Step 1: Upload CSV Data',
+        1: 'Step 1: Upload CSV or Excel Data',
         2: 'Step 2: Map Columns',
         3: 'Step 3: Message Template',
         4: 'Step 4: Outreach List'

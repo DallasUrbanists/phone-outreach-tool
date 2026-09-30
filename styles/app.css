@@ -67,10 +67,6 @@
     display: none !important;
 }
 
-#btn-step-1-next:not(.d-none) {
-    display: flex !important;
-}
-
 #btn-copy-selected:not(.d-none),
 #btn-restore-ignored:not(.d-none) {
     display: inline-flex !important;

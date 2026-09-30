@@ -22,7 +22,7 @@
         <header class="card-header bg-dark text-white p-3 d-flex align-items-center justify-content-between flex-shrink-0 border-0 flex-wrap">
             <div>
                 <h1 class="h6 fw-bold mb-0 text-white">Phone Outreach Tool</h1>
-                <small class="text-secondary" id="step-subtitle">Step 1: Upload CSV Data</small>
+                <small class="text-secondary" id="step-subtitle">Step 1: Upload CSV or Excel Data</small>
             </div>
             <!-- Wizard Step Pills (4 Steps) -->
             <div class="d-flex align-items-center gap-1" id="step-pills">
@@ -45,41 +45,49 @@
                     <!-- File Drop/Select Target -->
                     <div class="card border-2 border-dashed bg-light text-center p-4 rounded-3 cursor-pointer dropzone" id="drop-zone" onclick="document.getElementById('csv-file-input').click()">
                         <i class="bi bi-cloud-arrow-up text-secondary display-5 mb-2"></i>
-                        <span class="fw-semibold text-secondary small" id="file-name-display">Select a CSV contact list from your phone or device to generate custom SMS links.</span>
+                        <span class="fw-semibold text-secondary small" id="file-name-display">Select a CSV or Excel contact list from your phone or device to generate custom SMS links.</span>
                         <span class="text-muted small mt-1" id="file-size-display"></span>
-                        <input type="file" id="csv-file-input" accept=".csv,text/csv,text/plain" class="d-none">
+                        <input type="file" id="csv-file-input" accept=".csv,text/csv,text/plain,.xlsx,.xls,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.ms-excel" class="d-none">
                     </div>
 
                     <!-- Manual Input Textarea -->
                     <div>
                         <label class="form-label fw-semibold small text-secondary mb-1" for="manual-contacts-input">Or enter contact list manually</label>
-                        <textarea id="manual-contacts-input" class="form-control auto-resize h-scroll" rows="4"
-                            placeholder="Paste CSV data or plain phone numbers..." oninput="updateStep1NextButton()"></textarea>
-                    </div>
-
-                    <!-- Input Format Radio Group -->
-                    <div class="bg-light border rounded-3 p-2 d-flex flex-column gap-2">
-                        <div class="form-check mb-0">
-                            <input class="form-check-input cursor-pointer" type="radio" name="inputFormatMode" id="mode-row-per-contact" value="row-per-contact" checked onchange="handleInputModeChange()">
-                            <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="mode-row-per-contact">
-                                One row per contact
-                            </label>
-                        </div>
-                        <div class="form-check mb-0">
-                            <input class="form-check-input cursor-pointer" type="radio" name="inputFormatMode" id="mode-plain-phone-list" value="plain-phone-list" onchange="handleInputModeChange()">
-                            <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="mode-plain-phone-list">
-                                Plain list of phone numbers
-                            </label>
+                        <textarea id="manual-contacts-input" class="form-control auto-resize h-scroll rounded-0 rounded-top" rows="4"
+                            placeholder="Paste CSV data or plain phone numbers..." oninput="updateStep1NextButton()" spellcheck="false"></textarea>
+                        <!-- Input Format Radio Group -->
+                        <div class="bg-light border rounded-bottom p-2 d-flex flex-column gap-2">
+                            <div class="form-check mb-0">
+                                <input class="form-check-input cursor-pointer" type="radio" name="inputFormatMode" id="mode-row-per-contact" value="row-per-contact" checked onchange="handleInputModeChange()">
+                                <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="mode-row-per-contact">
+                                    One row per contact
+                                </label>
+                            </div>
+                            <div class="form-check mb-0">
+                                <input class="form-check-input cursor-pointer" type="radio" name="inputFormatMode" id="mode-plain-phone-list" value="plain-phone-list" onchange="handleInputModeChange()">
+                                <label class="form-check-label small fw-semibold text-dark cursor-pointer" for="mode-plain-phone-list">
+                                    Plain list of phone numbers
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <!-- Step 1 Actions (Only visible when file selected or text entered) -->
-                <div class="pt-3">
-                    <button id="btn-step-1-next" onclick="handleStep1Continue()" class="btn btn-success btn-lg w-100 d-none align-items-center justify-content-center gap-2">
-                        <span id="btn-step-1-next-text">Continue to column mapping</span>
-                        <i class="bi bi-arrow-right"></i>
-                    </button>
+                <div id="step-1-actions" class="pt-3 d-none">
+                    <div class="row g-2">
+                        <div class="col-4">
+                            <button type="button" id="btn-step-1-reset" onclick="resetStep1Inputs()" class="btn btn-outline-secondary w-100">
+                                Reset
+                            </button>
+                        </div>
+                        <div class="col-8">
+                            <button type="button" id="btn-step-1-next" onclick="handleStep1Continue()" class="btn btn-success w-100 d-flex align-items-center justify-content-center gap-2">
+                                <span id="btn-step-1-next-text">Continue to column mapping</span>
+                                <i class="bi bi-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -273,6 +281,8 @@
         <div id="toast-container" class="toast-container position-fixed bottom-0 start-50 translate-middle-x p-3" style="z-index: 1090;" aria-live="polite"></div>
     </div>
 
+    <!-- SheetJS (Excel .xlsx / .xls support) -->
+    <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
     <!-- Bootstrap 5 Bundle JS -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./app.js"></script>
