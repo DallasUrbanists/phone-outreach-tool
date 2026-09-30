@@ -2,30 +2,32 @@
 
 A fast, lightweight, and privacy-focused client-side web application designed for community organizers, campaign volunteers, and outreach teams. Easily import contacts, compose personalized SMS templates with dynamic tags, and conduct 1-on-1 SMS outreach directly from your browser or mobile device.
 
+[**🌐 GO TO ONLINE TOOL NOW**](https://dallasurbanists.github.io/phone-outreach-tool/)
+
 ## 🚀 Features
 
-- **📂 Multi-Format Contact Import (Step 1)**
-  - Drag-and-drop or select `.csv`, `.xlsx`, and `.xls` files (powered by [SheetJS](https://sheetjs.com/)).
-  - Manual copy-paste support for raw CSV rows or plain phone number lists.
+**Multi-Format Contact Import**
+- Drag-and-drop or select `.csv`, `.xlsx`, and `.xls` files (powered by [SheetJS](https://sheetjs.com/)).
+- Manual copy-paste support for raw CSV rows or plain phone number lists.
   
-- **🗺️ Intelligent Column Mapping (Step 2)**
-  - Automatic column detection and toggleable header row recognition.
-  - Flexible mapping for First Name, Last Name, Full Name, Phone Number, and Email.
+**Intelligent Column Mapping**
+- Automatic column detection and toggleable header row recognition.
+- Flexible mapping for First Name, Last Name, Full Name, Phone Number, and Email.
 
-- **✍️ Personalized Message Templating (Step 3)**
-  - Dynamic template placeholder tags: `{first_name}`, `{last_name}`, `{full_name}`, and `{email}`.
-  - Quick-insert variable pills and live message preview for the first contact.
+**Personalized Message Templating**
+- Dynamic template placeholder tags: `{first_name}`, `{last_name}`, `{full_name}`, and `{email}`.
+- Quick-insert variable pills and live message preview for the first contact.
 
-- **📱 Outreach Dashboard & Tracking (Step 4)**
-  - One-click native `sms:` links to launch your device's default messaging app with pre-filled text.
-  - Real-time outreach progress bar and counter.
-  - Filter by All / Unsent contacts and instant search by name or phone.
-  - Ignore/restore contacts and batch actions (Select All, Copy selected emails).
-  - Fullscreen expandable list view optimized for mobile and desktop screens.
+**Outreach Dashboard & Tracking**
+- One-click native `sms:` links to launch your device's default messaging app with pre-filled text.
+- Real-time outreach progress bar and counter.
+- Filter by All / Unsent contacts and instant search by name or phone.
+- Ignore/restore contacts and batch actions (Select All, Copy selected emails).
+- Fullscreen expandable list view optimized for mobile and desktop screens.
 
-- **🔒 100% Client-Side & Private**
-  - No server backend or external database. All contact data stays securely in your browser.
-  - Automatic state persistence via `localStorage` so you never lose your place on page reload.
+**100% Client-Side & Private**
+- No server backend or external database. All contact data stays securely in your browser.
+- Automatic state persistence via `localStorage` so you never lose your place on page reload.
 
 ## 🛠️ Built With
 
@@ -39,7 +41,9 @@ A fast, lightweight, and privacy-focused client-side web application designed fo
 
 ### Prerequisites
 
-You only need a modern web browser. For local development, Node.js is recommended to run a lightweight local static server.
+- Git
+- Node JS
+- NPM
 
 ### Running Locally
 
